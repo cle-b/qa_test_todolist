@@ -108,10 +108,10 @@ def test_task_create_two_tasks_with_the_same_title_but_different_tags(
     api.authenticate(new_user.username, new_user.password)
     task1 = api.create_task(Task(unique_task_title, [Tag(f"{unique_tag_name}1")]))
     assert task1.title == unique_task_title
-    assert task1.tag[0].name == f"{unique_tag_name}1"
+    assert task1.tags[0].name == f"{unique_tag_name}1"
     task2 = api.create_task(Task(unique_task_title, [Tag(f"{unique_tag_name}2")]))
     assert task2.title == unique_task_title
-    assert task2.tag[0].name == f"{unique_tag_name}2"
+    assert task2.tags[0].name == f"{unique_tag_name}2"
 
 
 @pytest.mark.api

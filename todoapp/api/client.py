@@ -30,6 +30,12 @@ class TodoAppAPI(object):
         self.base_url = base_url  # TODO remove last /
         self.session = requests.Session()
 
+    def __repr__(self):
+        return f"base_url {self.base_url}"
+
+    def __str__(self):
+        return f"base_url {self.base_url}"
+
     def _auth_basic(self, username, password):
         self.session.auth = (username, password)
 
