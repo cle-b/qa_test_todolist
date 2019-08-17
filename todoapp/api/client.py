@@ -61,7 +61,7 @@ class TodoAppAPI(object):
     def create_user(self, user):
         response = self.session.post(f"{self.base_url}/users", json=user.to_json())
 
-        check_status(response, 200, "Unable to reset user")
+        check_status(response, 200, "Unable to create user")
 
         return User().from_json(response.json())
 

@@ -2,10 +2,12 @@
 import os
 import sys
 import shutil
+import string
+import secrets
 
 import pytest
 
-from todoapp.api import TodoAppAPI
+from todoapp.api import TodoAppAPI, User, Task, Tag
 
 
 for env in ["QA_TODOAPP_BASEURL", "QA_TODOAPP_USERNAME", "QA_TODOAPP_PASSWORD"]:
@@ -21,10 +23,7 @@ def base_url():
 
 @pytest.fixture(scope="session")
 def default_user():
-    return {
-        "username": os.environ["QA_TODOAPP_USERNAME"],
-        "password": os.environ["QA_TODOAPP_PASSWORD"],
-    }
+    return User(os.environ["QA_TODOAPP_USERNAME"], os.environ["QA_TODOAPP_PASSWORD"])
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -50,3 +49,34 @@ def vcr_config():
         "record_mode": "all",
         "decode_compressed_response": True,
     }
+
+
+def random_name(length):
+    alphabet = string.ascii_letters + string.digits
+    return "".join(secrets.choice(alphabet) for i in range(16))
+
+
+@pytest.fixture
+def unique_task_title():
+    return random_name(16)
+
+
+@pytest.fixture
+def unique_tag_name():
+    return random_name(16)
+
+
+@pytest.fixture
+def new_user(base_url):
+    api = TodoAppAPI(base_url)
+    user = User(random_name(16), random_name(16))
+    api.create_user(user)
+    return user
+
+
+@pytest.fixture
+def new_task(base_url, new_user):
+    api = TodoAppAPI(base_url)
+    api.authenticate(new_user.username, new_user.password)
+    task = api.create_task(Task(random_name(16), [Tag(random_name(16))]))
+    return task
