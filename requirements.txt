@@ -1,0 +1,7 @@
+black
+flake8
+requests
+pytest
+vcrpy
+pytest-vcr
+tox
