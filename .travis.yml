@@ -6,10 +6,6 @@ services:
 
 matrix:
   include:
-
-    - python: 3.7
-      env: TOX_ENV=py37-api
-      name: "tests for the REST API"
     - python: 3.7
       env: TOX_ENV=flake8
       name: "flake8 check (linting)"
