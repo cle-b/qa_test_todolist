@@ -44,5 +44,7 @@ class HomePage(BasePage):
     @property
     def taskboard(self):
         return TaskBoardPage(
-            self.driver, self.driver.find_element(*self.__selectors["taskboard"])
+            self.base_url,
+            self.driver,
+            self.driver.find_element(*self.__selectors["taskboard"]),
         )

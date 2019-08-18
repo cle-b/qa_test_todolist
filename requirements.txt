@@ -7,3 +7,4 @@ pytest-vcr
 tox
 selenium
 niobium
+pytest-selenium

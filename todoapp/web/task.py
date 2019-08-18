@@ -16,17 +16,18 @@ class TaskBoardPage(BasePage):
 
     def tasks(self):
         return [
-            TaskPage(self.driver, task_elt)
+            TaskPage(self.base_url, self.driver, task_elt)
             for task_elt in self.root.find_elements(*self.__selectors["tasks"])
         ]
 
-    def find_task(self, title):
+    def find_task(self, title, timeout=None):
         return TaskPage(
+            self.base_url,
             self.driver,
             self.root.find_element(
                 self.__selectors["task_by_title"][0],
                 self.__selectors["task_by_title"][1].format(title=title),
-            ).wait(),
+            ).wait(timeout=timeout),
         )
 
 
@@ -116,7 +117,7 @@ class TaskPage(BasePage):
         close_button_elt.click()
 
         # just wait until the edit popup is closed
-        self.root.find_element(*self.__selectors["title"]).wait() 
+        self.root.find_element(*self.__selectors["title"]).wait()
 
         if title is not None:
             assert (
