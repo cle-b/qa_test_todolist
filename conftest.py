@@ -4,10 +4,14 @@ import sys
 import shutil
 import string
 import secrets
+from urllib.parse import urljoin
 
 import pytest
 
 from todoapp.api import TodoAppAPI, User, Task, Tag
+from todoapp.web import HomePage
+
+import niobium  # noqa: F401 - niobium automatically patches selenium
 
 
 for env in ["QA_TODOAPP_BASEURL", "QA_TODOAPP_USERNAME", "QA_TODOAPP_PASSWORD"]:
@@ -80,3 +84,35 @@ def new_task(base_url, new_user):
     api.authenticate(new_user.username, new_user.password)
     task = api.create_task(Task(random_name(16), [Tag(random_name(16))]))
     return task
+
+
+@pytest.fixture
+def new_task_done(base_url, new_user):
+    api = TodoAppAPI(base_url)
+    api.authenticate(new_user.username, new_user.password)
+    task = api.create_task(Task(random_name(16), [Tag(random_name(16))]))
+    task.done = True
+    updated_task = api.update_task(task.id, task)
+    return updated_task
+
+
+@pytest.fixture
+def new_task_no_tag(base_url, new_user):
+    api = TodoAppAPI(base_url)
+    api.authenticate(new_user.username, new_user.password)
+    task = api.create_task(Task(random_name(16), []))
+    return task
+
+
+@pytest.fixture
+def new_task_default_user(base_url, default_user):
+    api = TodoAppAPI(base_url)
+    api.authenticate(default_user.username, default_user.password)
+    task = api.create_task(Task(random_name(16), [Tag(random_name(16))]))
+    return task
+
+
+@pytest.fixture
+def webapp(selenium, base_url):
+    selenium.implicitly_wait(5)
+    return HomePage(urljoin(base_url, "/web/index.html"), selenium)

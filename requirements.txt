@@ -5,3 +5,6 @@ pytest
 vcrpy
 pytest-vcr
 tox
+selenium
+niobium
+pytest-selenium
