@@ -104,4 +104,4 @@ tox -e py37-remotechrome
 
 When the tests are executed through tox, the report is automatically saved in the `reports` directory.
 
-(flake8, black and py37-pr are tox environments that have been created only for the development, not in order to run the tests).
+(flake8, black and py37-pr are tox environments have been created only for the development, not in order to run the tests).
