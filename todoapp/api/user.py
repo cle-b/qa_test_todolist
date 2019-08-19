@@ -2,7 +2,20 @@
 
 
 class User(object):
-    def __init__(self, username=None, password=None):
+    """A user
+
+    Params:
+        username {str} -- the username
+        password {str} -- the password
+    """
+
+    def __init__(self, username, password):
+        """User description
+
+        Arguments:
+            username {str} -- the username
+            password {str} -- the password
+        """
         self.username = username
         self.password = password
 

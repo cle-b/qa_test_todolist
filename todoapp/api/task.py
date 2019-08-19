@@ -3,7 +3,24 @@ from .tag import Tag
 
 
 class Task(object):
-    def __init__(self, title=None, tags=[]):
+    """A task
+
+    Params:
+        title {str} -- the task title (max 20 chars, shall be unique) (can be updated)
+        tags {[Tag]} -- A list of tags (can be updated)
+        date {str} -- the creation date
+        done {str} -- the task status - (can be updated)
+        id {int} -- the task id
+        username {str} -- the task owner
+    """
+
+    def __init__(self, title, tags=[]):
+        """Task description
+
+        Keyword Arguments:
+            title {str} -- the title task
+            tags {[str]} -- A list of tag name (default: {[]})
+        """
         self.title = title
         self.tags = tags
         self.date = None

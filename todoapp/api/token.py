@@ -2,6 +2,14 @@
 
 
 class Token(object):
+    """A token
+
+    Params:
+        username {str} -- the owner of the token
+        token {str} -- the token
+        expires {str} -- the expiration date
+    """
+
     def __init__(self):
         self.username = None
         self.token = None
