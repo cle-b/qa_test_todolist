@@ -7,6 +7,7 @@ import secrets
 from urllib.parse import urljoin
 
 import pytest
+from py.xml import html
 
 from todoapp.api import TodoAppAPI, User, Task, Tag
 from todoapp.web import HomePage
@@ -41,15 +42,15 @@ def api(base_url):
     return TodoAppAPI(base_url)
 
 
-cassette_library_dir = "cassettes"
+CASSETTE_LIBRARY_DIR = "assets"
 
-shutil.rmtree(cassette_library_dir, ignore_errors=True)
+shutil.rmtree(CASSETTE_LIBRARY_DIR, ignore_errors=True)
 
 
 @pytest.fixture(scope="session")
 def vcr_config():
     return {
-        "cassette_library_dir": cassette_library_dir,
+        "cassette_library_dir": CASSETTE_LIBRARY_DIR,
         "record_mode": "all",
         "decode_compressed_response": True,
     }
@@ -116,3 +117,27 @@ def new_task_default_user(base_url, default_user):
 def webapp(selenium, base_url):
     selenium.implicitly_wait(5)
     return HomePage(urljoin(base_url, "/web/index.html"), selenium)
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    pytest_html = item.config.pluginmanager.getplugin("html")
+    outcome = yield
+    report = outcome.get_result()
+    report.description = str(item.function.__doc__)
+    extra = getattr(report, "extra", [])
+    if report.when == "call":
+        # add HTTP trace for the API tests only
+        if report.location[2].startswith("test_api"):
+            extra.append(
+                pytest_html.extras.url(
+                    f"{CASSETTE_LIBRARY_DIR}/{report.location[2]}.yaml", name="HTTP"
+                )
+            )
+        report.extra = extra
+
+
+def pytest_html_results_table_html(report, data):
+    if report.passed:
+        del data[:]
+        data.append(html.div(report.description, class_="empty log"))

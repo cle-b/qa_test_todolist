@@ -8,3 +8,4 @@ tox
 selenium
 niobium
 pytest-selenium
+pytest-html

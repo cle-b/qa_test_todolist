@@ -6,8 +6,9 @@ from todoapp.api import Task, Tag, TodoAppApiException
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskcreate
 @pytest.mark.vcr()
-def test_task_create_task(api, new_user, unique_task_title):
+def test_api_task_create_task(api, new_user, unique_task_title):
     """
     1. Sign in.
     2. Create a task with no tag.
@@ -20,6 +21,7 @@ def test_task_create_task(api, new_user, unique_task_title):
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskcreate
 @pytest.mark.vcr()
 def test_task_create_task_with_one_tag(
     api, new_user, unique_task_title, unique_tag_name
@@ -36,6 +38,7 @@ def test_task_create_task_with_one_tag(
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskcreate
 @pytest.mark.vcr()
 def test_task_create_task_with_many_tags(
     api, new_user, unique_task_title, unique_tag_name
@@ -53,6 +56,7 @@ def test_task_create_task_with_many_tags(
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskcreate
 @pytest.mark.vcr()
 def test_task_create_task_anonymous(api, unique_task_title):
     """
@@ -65,6 +69,7 @@ def test_task_create_task_anonymous(api, unique_task_title):
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskcreate
 @pytest.mark.vcr()
 def test_task_create_task_empty_title(api, new_user):
     """
@@ -78,6 +83,7 @@ def test_task_create_task_empty_title(api, new_user):
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskcreate
 @pytest.mark.bug
 @pytest.mark.vcr()
 def test_task_create_two_tasks_with_the_same_title(api, new_user, unique_task_title):
@@ -95,6 +101,7 @@ def test_task_create_two_tasks_with_the_same_title(api, new_user, unique_task_ti
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskcreate
 @pytest.mark.bug
 @pytest.mark.vcr()
 def test_task_create_two_tasks_with_the_same_title_but_different_tags(
@@ -116,6 +123,7 @@ def test_task_create_two_tasks_with_the_same_title_but_different_tags(
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskcreate
 @pytest.mark.vcr()
 def test_task_create_task_with_a_long_title(api, new_user, unique_task_title):
     """
@@ -130,6 +138,7 @@ def test_task_create_task_with_a_long_title(api, new_user, unique_task_title):
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskcreate
 @pytest.mark.bug
 @pytest.mark.vcr()
 def test_task_create_task_with_a_too_long_title(api, new_user, unique_task_title):

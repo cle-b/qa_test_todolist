@@ -4,6 +4,7 @@ import pytest
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.taskget
 def test_web_task_check_information(
     webapp, new_user, new_task, new_task_done, new_task_no_tag
 ):

@@ -4,6 +4,7 @@ import pytest
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.taskupdate
 def test_web_task_anonymous_cant_edit(webapp, new_task):
     """
     1. Navigate to the HomePage.
@@ -16,6 +17,7 @@ def test_web_task_anonymous_cant_edit(webapp, new_task):
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.taskupdate
 def test_web_task_edit_option_only_for_own_tasks(
     webapp, new_user, new_task, new_task_default_user
 ):
@@ -32,6 +34,7 @@ def test_web_task_edit_option_only_for_own_tasks(
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.taskupdate
 def test_web_task_edit_title(webapp, new_user, new_task, unique_task_title):
     """
     1. Navigate to the HomePage.
@@ -49,6 +52,7 @@ def test_web_task_edit_title(webapp, new_user, new_task, unique_task_title):
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.taskupdate
 def test_web_task_edit_status_to_done(webapp, new_user, new_task):
     """
     1. Navigate to the HomePage.
@@ -67,6 +71,7 @@ def test_web_task_edit_status_to_done(webapp, new_user, new_task):
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.taskupdate
 def test_web_task_edit_status_to_in_progress(webapp, new_user, new_task_done):
     """
     1. Navigate to the HomePage.

@@ -6,8 +6,9 @@ from todoapp.api import TodoAppApiException
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskdelete
 @pytest.mark.vcr()
-def test_task_delete_task(api, new_user, new_task):
+def test_api_task_delete_task(api, new_user, new_task):
     """
     1. Sign in.
     2. List the tasks. The newly created task is present.
@@ -22,8 +23,9 @@ def test_task_delete_task(api, new_user, new_task):
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskdelete
 @pytest.mark.vcr()
-def test_task_delete_task_anonymous(api, new_task):
+def test_api_task_delete_task_anonymous(api, new_task):
     """
     1. List the tasks. The newly created task is present.
     2. Delete a task owned by to the authenticated user (shall failed).
@@ -36,9 +38,10 @@ def test_task_delete_task_anonymous(api, new_task):
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskdelete
 @pytest.mark.vcr()
 @pytest.mark.bug
-def test_task_delete_task_another_user(api, new_task, default_user):
+def test_api_task_delete_task_another_user(api, new_task, default_user):
     """
     1. Sign in.
     2. List the tasks. The newly created task is present.

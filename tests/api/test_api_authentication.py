@@ -7,7 +7,7 @@ from todoapp.api import Task, TodoAppApiException
 @pytest.mark.api
 @pytest.mark.authentication
 @pytest.mark.vcr()
-def test_authentication_success_basic(api, default_user, unique_task_title):
+def test_api_authentication_success_basic(api, default_user, unique_task_title):
     """
     1. Authenticate with the default user's credentials (using basic mode).
     2. Create a task (shall be a success).
@@ -22,7 +22,7 @@ def test_authentication_success_basic(api, default_user, unique_task_title):
 @pytest.mark.api
 @pytest.mark.authentication
 @pytest.mark.vcr()
-def test_authentication_success_token(api, default_user):
+def test_api_authentication_success_token(api, default_user):
     """
     1. Authenticate with the default user's credentials (using token mode).
     """
@@ -36,7 +36,7 @@ def test_authentication_success_token(api, default_user):
 @pytest.mark.parametrize(
     "username,password", [("nobody", "personne"), ("", "willWin"), ("QA", ""), ("", "")]
 )
-def test_authentication_failed_basic(api, username, password, unique_task_title):
+def test_api_authentication_failed_basic(api, username, password, unique_task_title):
     """
     1. Authenticate with bad credentials using basic mode
     2. Create a task (shall failed).
@@ -53,7 +53,7 @@ def test_authentication_failed_basic(api, username, password, unique_task_title)
 @pytest.mark.parametrize(
     "username,password", [("nobody", "personne"), ("", "willWin"), ("QA", ""), ("", "")]
 )
-def test_authentication_failed_token(api, username, password):
+def test_api_authentication_failed_token(api, username, password):
     """
     1. Authenticate with bad credentials using token mode (shall failed).
     """

@@ -1,8 +1,10 @@
 # vscode
 .vscode
 
-# vcrpy k7
-cassettes
+# html report
+assets
+*.htm
+reports
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
