@@ -88,10 +88,15 @@ def new_task(base_url, new_user):
 
 
 @pytest.fixture
-def new_task_done(base_url, new_user):
+def new_task_done_three_tags(base_url, new_user):
     api = TodoAppAPI(base_url)
     api.authenticate(new_user.username, new_user.password)
-    task = api.create_task(Task(random_name(16), [Tag(random_name(16))]))
+    task = api.create_task(
+        Task(
+            random_name(16),
+            [Tag(random_name(16)), Tag(random_name(16)), Tag(random_name(16))],
+        )
+    )
     task.done = True
     updated_task = api.update_task(task.id, task)
     return updated_task

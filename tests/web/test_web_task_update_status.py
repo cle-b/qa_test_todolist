@@ -5,7 +5,9 @@ import pytest
 @pytest.mark.web
 @pytest.mark.task
 @pytest.mark.taskupdate
-def test_web_task_anonymous_cant_change_status(webapp, new_task, new_task_done):
+def test_web_task_anonymous_cant_change_status(
+    webapp, new_task, new_task_done_three_tags
+):
     """
     1. Navigate to the HomePage.
     2. Verify that 'mark done' and 'mark in progress' options are unavailable
@@ -59,7 +61,9 @@ def test_web_task_update_status_to_done(webapp, new_user, new_task):
 @pytest.mark.web
 @pytest.mark.task
 @pytest.mark.taskupdate
-def test_web_task_update_status_to_in_progress(webapp, new_user, new_task_done):
+def test_web_task_update_status_to_in_progress(
+    webapp, new_user, new_task_done_three_tags
+):
     """
     1. Navigate to the HomePage.
     2. Sign in.
@@ -69,7 +73,7 @@ def test_web_task_update_status_to_in_progress(webapp, new_user, new_task_done):
     """
     webapp.homepage()
     webapp.sign_in(new_user.username, new_user.password)
-    task = webapp.taskboard.find_task(new_task_done.title)
+    task = webapp.taskboard.find_task(new_task_done_three_tags.title)
     assert task.done is True
     task.mark_in_progress()
     assert task.done is False
