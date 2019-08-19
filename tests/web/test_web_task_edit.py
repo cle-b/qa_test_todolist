@@ -40,7 +40,7 @@ def test_web_task_edit_title(webapp, new_user, new_task, unique_task_title):
     1. Navigate to the HomePage.
     2. Sign in.
     3. List the tasks. The newly created task is present.
-    4. Update the titleof a task owned by to the authenticated user.
+    4. Update the title of a task owned by to the authenticated user.
     5. List the tasks. The title of the task is updated ().
     """
     webapp.homepage()
@@ -72,7 +72,9 @@ def test_web_task_edit_status_to_done(webapp, new_user, new_task):
 @pytest.mark.web
 @pytest.mark.task
 @pytest.mark.taskupdate
-def test_web_task_edit_status_to_in_progress(webapp, new_user, new_task_done):
+def test_web_task_edit_status_to_in_progress(
+    webapp, new_user, new_task_done_three_tags
+):
     """
     1. Navigate to the HomePage.
     2. Sign in.
@@ -82,7 +84,48 @@ def test_web_task_edit_status_to_in_progress(webapp, new_user, new_task_done):
     """
     webapp.homepage()
     webapp.sign_in(new_user.username, new_user.password)
-    task = webapp.taskboard.find_task(new_task_done.title)
+    task = webapp.taskboard.find_task(new_task_done_three_tags.title)
     assert task.done is True
     task.edit(done=False)
     assert task.done is False
+
+
+@pytest.mark.web
+@pytest.mark.task
+@pytest.mark.taskupdate
+def test_web_task_edit_title_with_already_existing_title(
+    webapp, new_user, new_task, new_task_no_tag
+):
+    """
+    1. Navigate to the HomePage.
+    2. Sign in.
+    3. List the tasks. The newly created task is present.
+    4. Update the title of a task owned by to the authenticated user
+       with the title of another task. (shall fail).
+    """
+    webapp.homepage()
+    webapp.sign_in(new_user.username, new_user.password)
+    task = webapp.taskboard.find_task(new_task.title)
+    with pytest.raises(AssertionError):
+        task.edit(title=new_task_no_tag.title)
+
+
+@pytest.mark.web
+@pytest.mark.task
+@pytest.mark.taskupdate
+@pytest.mark.bug
+def test_web_task_edit_title_with_too_long_title(
+    webapp, new_user, new_task, new_task_no_tag
+):
+    """
+    1. Navigate to the HomePage.
+    2. Sign in.
+    3. List the tasks. The newly created task is present.
+    4. Update the title of a task owned by to the authenticated user
+       with the title too long (21 characters) (shall fail).
+    """
+    webapp.homepage()
+    webapp.sign_in(new_user.username, new_user.password)
+    task = webapp.taskboard.find_task(new_task.title)
+    with pytest.raises(AssertionError):
+        task.edit(title=f"{task.title}('D'*20)"[:21])
