@@ -14,11 +14,11 @@ class Task(object):
         username {str} -- the task owner
     """
 
-    def __init__(self, title, tags=[]):
+    def __init__(self, title=None, tags=[]):
         """Task description
 
         Keyword Arguments:
-            title {str} -- the title task
+            title {str} -- the title task (default: {None})
             tags {[str]} -- A list of tag name (default: {[]})
         """
         self.title = title

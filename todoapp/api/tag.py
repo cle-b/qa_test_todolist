@@ -9,11 +9,11 @@ class Tag(object):
         url {str} -- ???
     """
 
-    def __init__(self, name):
+    def __init__(self, name=None):
         """Tag description
 
         Keyword Arguments:
-            name {str} -- the tag name
+            name {str} -- the tag name (default: {None})
         """
         self.name = name
         self.url = None

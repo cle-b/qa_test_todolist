@@ -9,12 +9,12 @@ class User(object):
         password {str} -- the password
     """
 
-    def __init__(self, username, password):
+    def __init__(self, username=None, password=None):
         """User description
 
         Arguments:
-            username {str} -- the username
-            password {str} -- the password
+            username {str} -- the username (default: {None})
+            password {str} -- the password (default: {None})
         """
         self.username = username
         self.password = password
