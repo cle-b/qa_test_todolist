@@ -2,7 +2,19 @@
 
 
 class Tag(object):
+    """A tag
+
+    Params:
+        name {str} -- the tag name
+        url {str} -- ???
+    """
+
     def __init__(self, name=None):
+        """Tag description
+
+        Keyword Arguments:
+            name {str} -- the tag name (default: {None})
+        """
         self.name = name
         self.url = None
 

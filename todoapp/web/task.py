@@ -7,6 +7,8 @@ from .base import BasePage
 
 
 class TaskBoardPage(BasePage):
+    """Inspect the taskboard
+    """
 
     __selectors = {
         "tasks": (By.CSS_SELECTOR, "tr:not(:first-of-type)"),
@@ -17,12 +19,31 @@ class TaskBoardPage(BasePage):
     }
 
     def tasks(self):
+        """List all tasks present in the taskboard
+
+        Returns:
+            [TaskPage] -- A list of tasks
+        """
         return [
             TaskPage(self.base_url, self.driver, task_elt)
             for task_elt in self.root.find_elements(*self.__selectors["tasks"])
         ]
 
     def find_task(self, title, timeout=None):
+        """Search a task by title
+
+        Arguments:
+            title {str} -- the title of the task
+
+        Keyword Arguments:
+            timeout {int} -- the max time to wait, in seconds (default: {None})
+
+        Returns:
+            TaskPage -- The task
+
+        Raises:
+            WebDriverException: no task found
+        """
         return TaskPage(
             self.base_url,
             self.driver,
@@ -34,6 +55,8 @@ class TaskBoardPage(BasePage):
 
 
 class TaskPage(BasePage):
+    """Task manipulation: get informations, update, delete
+    """
 
     __selectors = {
         "title": (By.CSS_SELECTOR, "[data-bind='text: title']"),
@@ -87,6 +110,17 @@ class TaskPage(BasePage):
         return opts
 
     def edit(self, title=None, done=None):
+        """Edit the task informations
+
+        Keyword Arguments:
+            title {str} -- the new title (default: {None})
+            done {bool} -- the new status (default: {None})
+
+        Raises:
+            WebDriverException: unable to edit the task
+            AssertionError: the informations have not been modified
+        """
+
         self.root.find_element(*self.__selectors["edit"]).wait().click()
 
         edit_popup_elt = self.driver.find_element(
@@ -131,16 +165,33 @@ class TaskPage(BasePage):
                 self.root.find_element(*self.__selectors["done"]).is_displayed() == done
             )
 
-    def delete(self, title=None, done=None):
+    def delete(self):
+        """Delete the task (warning - no control is performed)
+
+        Raises:
+            WebDriverException: unable to delete the task
+        """
         self.root.find_element(*self.__selectors["delete"]).wait().click()
         time.sleep(1)  # TODO find a way to verify itself if it always exists
 
     def mark_done(self):
+        """Update the task status to done
+
+        Raises:
+            WebDriverException: unable to update the task
+            AssertionError: the status has not been modified
+        """
         self.root.find_element(*self.__selectors["mark_done"]).wait().click()
         self.root.find_element(*self.__selectors["mark_in_progress"]).wait()
         assert self.done is True
 
     def mark_in_progress(self):
+        """Update the task status to in progress
+
+        Raises:
+            WebDriverException: unable to update the task
+            AssertionError: the status has not been modified
+        """
         self.root.find_element(*self.__selectors["mark_in_progress"]).wait().click()
         self.root.find_element(*self.__selectors["mark_done"]).wait()
         assert self.done is False

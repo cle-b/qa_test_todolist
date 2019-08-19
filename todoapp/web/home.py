@@ -6,6 +6,8 @@ from .task import TaskBoardPage
 
 
 class HomePage(BasePage):
+    """The web app entry point
+    """
 
     __selectors = {
         "navbar": (By.ID, "navbar"),
@@ -17,6 +19,15 @@ class HomePage(BasePage):
     }
 
     def sign_in(self, username, password):
+        """Sign in
+
+        Arguments:
+            username {str} -- the username
+            password {str} -- the password
+
+        Raises:
+            WebDriverException: unable to sign in or sign in fail
+        """
         navbar_elt = self.driver.find_element(*self.__selectors["navbar"])
         username_elt = navbar_elt.find_element(*self.__selectors["username"]).wait()
         username_elt.clear()
@@ -28,12 +39,25 @@ class HomePage(BasePage):
         navbar_elt.find_element(*self.__selectors["signout"]).wait()
 
     def sign_out(self):
+        """Sign out
+
+        Raises:
+            WebDriverException: unable to sign out or sign out fail
+        """
         navbar_elt = self.driver.find_element(*self.__selectors["navbar"])
         navbar_elt.find_element(*self.__selectors["signout"]).wait().click()
         navbar_elt.find_element(*self.__selectors["signin"]).wait()
 
     @property
     def me(self):
+        """Get user information
+
+        Returns:
+            str -- the username if connected, None otherwise
+
+        Raises:
+            WebDriverException: unable to get user information
+        """
         navbar_elt = self.driver.find_element(*self.__selectors["navbar"])
         signout_elt = navbar_elt.find_element(*self.__selectors["signout"])
         if signout_elt.is_displayed():
@@ -43,6 +67,14 @@ class HomePage(BasePage):
 
     @property
     def taskboard(self):
+        """Get the taskboard
+
+        Returns:
+            TaskBoardPage -- the taskboard
+
+        Raises:
+            WebDriverException: no taskboard found
+        """
         return TaskBoardPage(
             self.base_url,
             self.driver,
