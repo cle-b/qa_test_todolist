@@ -23,7 +23,7 @@ def test_api_task_create_task(api, new_user, unique_task_title):
 @pytest.mark.task
 @pytest.mark.taskcreate
 @pytest.mark.vcr()
-def test_task_create_task_with_one_tag(
+def test_api_task_create_task_with_one_tag(
     api, new_user, unique_task_title, unique_tag_name
 ):
     """
@@ -40,7 +40,7 @@ def test_task_create_task_with_one_tag(
 @pytest.mark.task
 @pytest.mark.taskcreate
 @pytest.mark.vcr()
-def test_task_create_task_with_many_tags(
+def test_api_task_create_task_with_many_tags(
     api, new_user, unique_task_title, unique_tag_name
 ):
     """
@@ -58,7 +58,7 @@ def test_task_create_task_with_many_tags(
 @pytest.mark.task
 @pytest.mark.taskcreate
 @pytest.mark.vcr()
-def test_task_create_task_anonymous(api, unique_task_title):
+def test_api_task_create_task_anonymous(api, unique_task_title):
     """
     1. Create a task (user not authentified) (shall failed)
     """
@@ -71,7 +71,7 @@ def test_task_create_task_anonymous(api, unique_task_title):
 @pytest.mark.task
 @pytest.mark.taskcreate
 @pytest.mark.vcr()
-def test_task_create_task_empty_title(api, new_user):
+def test_api_task_create_task_empty_title(api, new_user):
     """
     1. Sign in.
     2. Create a task with an empty title
@@ -86,7 +86,7 @@ def test_task_create_task_empty_title(api, new_user):
 @pytest.mark.taskcreate
 @pytest.mark.bug
 @pytest.mark.vcr()
-def test_task_create_two_tasks_with_the_same_title(api, new_user, unique_task_title):
+def test_api_task_create_two_tasks_with_same_title(api, new_user, unique_task_title):
     """
     1. Sign in.
     2. Create a task with a unique title
@@ -104,7 +104,7 @@ def test_task_create_two_tasks_with_the_same_title(api, new_user, unique_task_ti
 @pytest.mark.taskcreate
 @pytest.mark.bug
 @pytest.mark.vcr()
-def test_task_create_two_tasks_with_the_same_title_but_different_tags(
+def test_api_task_create_two_tasks_with_the_same_title_but_different_tags(
     api, new_user, unique_task_title, unique_tag_name
 ):
     """
@@ -125,7 +125,7 @@ def test_task_create_two_tasks_with_the_same_title_but_different_tags(
 @pytest.mark.task
 @pytest.mark.taskcreate
 @pytest.mark.vcr()
-def test_task_create_task_with_a_long_title(api, new_user, unique_task_title):
+def test_api_task_create_task_with_a_long_title(api, new_user, unique_task_title):
     """
     1. Sign in.
     2. Create a task with a unique title with 20 characters (shall failed).
@@ -141,7 +141,7 @@ def test_task_create_task_with_a_long_title(api, new_user, unique_task_title):
 @pytest.mark.taskcreate
 @pytest.mark.bug
 @pytest.mark.vcr()
-def test_task_create_task_with_a_too_long_title(api, new_user, unique_task_title):
+def test_api_task_create_task_with_a_too_long_title(api, new_user, unique_task_title):
     """
     1. Sign in.
     2. Create a task with a unique title with 21 characters (shall failed).
