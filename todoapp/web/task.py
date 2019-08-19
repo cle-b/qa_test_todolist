@@ -74,6 +74,7 @@ class TaskPage(BasePage):
         "edit_popup": (By.ID, "edit"),
         "edit_popup_title": (By.CSS_SELECTOR, "[data-bind='value: title']"),
         "edit_popup_done": (By.CSS_SELECTOR, "[data-bind='checked: done']"),
+        "edit_popup_tag": (By.CSS_SELECTOR, "[data-bind='value: tag.name']"),
         "edit_popup_cancel": (By.CLASS_NAME, "close"),
         "edit_popup_save": (By.CSS_SELECTOR, "[data-bind='click:editTask']"),
     }
@@ -109,12 +110,14 @@ class TaskPage(BasePage):
                 opts.append(opt)
         return opts
 
-    def edit(self, title=None, done=None):
+    def edit(self, title=None, done=None, tags={}):
         """Edit the task informations
 
         Keyword Arguments:
             title {str} -- the new title (default: {None})
             done {bool} -- the new status (default: {None})
+            tags {dict} -- A list of tag name to update (default: {{}})
+                example: tags={"tagname1":"newtagname1", "tagname2":"newtagname2"}
 
         Raises:
             WebDriverException: unable to edit the task
@@ -141,7 +144,16 @@ class TaskPage(BasePage):
             if edit_popup_done.is_selected() != done:
                 edit_popup_done.click()
 
-        if (title is not None) or (done is not None):
+        for tagname, newtagname in tags.items():
+            for edit_tagname_elt in edit_popup_elt.find_elements(
+                *self.__selectors["edit_popup_tag"]
+            ):
+                if edit_tagname_elt.get_attribute("value") == tagname:
+                    edit_tagname_elt.wait()
+                    edit_tagname_elt.clear()
+                    edit_tagname_elt.send_keys(newtagname)
+
+        if (title is not None) or (done is not None) or (bool(tags)):
             close_button_elt = edit_popup_elt.find_element(
                 *self.__selectors["edit_popup_save"]
             ).wait()
@@ -164,6 +176,10 @@ class TaskPage(BasePage):
             assert (
                 self.root.find_element(*self.__selectors["done"]).is_displayed() == done
             )
+
+        for tagname, newtagname in tags.items():
+            assert tagname not in self.tags
+            assert newtagname in self.tags
 
     def delete(self):
         """Delete the task (warning - no control is performed)
