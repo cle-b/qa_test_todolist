@@ -72,7 +72,7 @@ class TodoAppAPI(object):
         return token
 
     def authenticate(self, username, password, mode="token"):
-        """User authentification
+        """User authentication
 
         Arguments:
             username {str} -- the username
@@ -86,7 +86,7 @@ class TodoAppAPI(object):
             TodoAppApiException: unable to get the token
 
         Returns:
-            [str] -- the token (or None if the authorization method is basic)
+            str -- the token (or None if the authorization method is basic)
         """
         if mode == "basic":
             return self._auth_basic(username, password)
@@ -127,7 +127,7 @@ class TodoAppAPI(object):
         """List all available tasks.
 
         Returns:
-            [Task] -- A list of task
+            [Task] -- A list of tasks
 
         Raises:
             TodoAppApiException: unable to retrieve tasks
@@ -163,7 +163,7 @@ class TodoAppAPI(object):
             id {int} -- the task id
 
         Returns:
-            [Task] -- the expected task
+            Task -- the expected task
 
         Raises:
             TodoAppApiException: unable to retrieve the task
@@ -196,7 +196,7 @@ class TodoAppAPI(object):
         """Update a task
 
         Arguments:
-            id {int} -- the id of the task to delete
+            id {int} -- the id of the task to update
             task {Task} -- the new task description
 
         Returns:
@@ -215,7 +215,7 @@ class TodoAppAPI(object):
         """List all the tags
 
         Returns:
-            [Tags] -- A list of tags
+            [Tag] -- A list of tags
 
         Raises:
             TodoAppApiException: unable to retrieve the list of tags
@@ -227,10 +227,13 @@ class TodoAppAPI(object):
         return [Tag().from_json(tag) for tag in response.json()]
 
     def get_tag(self, id):
-        """Get a tag description
+        """Get the tag description
 
         Arguments:
             id {int} -- the id of the tag
+
+        Returns:
+            Tag -- the tag description
 
         Raises:
             TodoAppApiException: unable to retrieve the tag description
