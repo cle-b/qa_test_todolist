@@ -40,7 +40,7 @@ def test_web_task_edit_title(webapp, new_user, new_task, unique_task_title):
     1. Navigate to the HomePage.
     2. Sign in.
     3. List the tasks. The newly created task is present.
-    4. Update the title of a task owned by to the authenticated user.
+    4. Update the title of a task owned by the authenticated user.
     5. List the tasks. The title of the task is updated ().
     """
     webapp.homepage()
@@ -100,7 +100,7 @@ def test_web_task_edit_title_with_already_existing_title(
     1. Navigate to the HomePage.
     2. Sign in.
     3. List the tasks. The newly created task is present.
-    4. Update the title of a task owned by to the authenticated user
+    4. Update the title of a task owned by the authenticated user
        with the title of another task. (shall fail).
     """
     webapp.homepage()
@@ -121,7 +121,7 @@ def test_web_task_edit_title_with_too_long_title(
     1. Navigate to the HomePage.
     2. Sign in.
     3. List the tasks. The newly created task is present.
-    4. Update the title of a task owned by to the authenticated user
+    4. Update the title of a task owned by the authenticated user
        with the title too long (21 characters) (shall fail).
     """
     webapp.homepage()
@@ -129,3 +129,29 @@ def test_web_task_edit_title_with_too_long_title(
     task = webapp.taskboard.find_task(new_task.title)
     with pytest.raises(AssertionError):
         task.edit(title=f"{task.title}('D'*20)"[:21])
+
+
+@pytest.mark.web
+@pytest.mark.task
+@pytest.mark.taskupdate
+@pytest.mark.bug
+def test_web_task_edit_change_tag_name(webapp, new_user, new_task_done_three_tags):
+    """
+    1. Navigate to the HomePage.
+    2. Sign in.
+    3. List the tasks. The newly created task is present.
+    4. Update a tag name of a task owned by the authenticated user.
+    5. Navigate to the HomePage (refresh the taskboard).
+    6. List the tasks. The newly created task is present.
+    7. The tag name is still updated.
+    """
+    webapp.homepage()
+    webapp.sign_in(new_user.username, new_user.password)
+    task = webapp.taskboard.find_task(new_task_done_three_tags.title)
+    old_tag_name = new_task_done_three_tags.tags[0].name
+    new_tag_name = f"{old_tag_name}A"
+    task.edit(tags={old_tag_name: new_tag_name})
+    webapp.homepage()
+    task = webapp.taskboard.find_task(new_task_done_three_tags.title)
+    assert old_tag_name not in task.tags
+    assert new_tag_name in task.tags
