@@ -4,8 +4,9 @@ import pytest
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskget
 @pytest.mark.vcr()
-def test_task_get_task(api, new_user, new_task):
+def test_api_task_get_task(api, new_user, new_task):
     """
     1. Sign in.
     2. Get description for a task owned by to the authenticated user.
@@ -17,8 +18,9 @@ def test_task_get_task(api, new_user, new_task):
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskget
 @pytest.mark.vcr()
-def test_task_get_task_anonymous_user(api, new_task):
+def test_api_task_get_task_anonymous_user(api, new_task):
     """
     2. As an anonymous user, get description for a task owned by another user.
     """

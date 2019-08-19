@@ -4,6 +4,7 @@ import pytest
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.taskdelete
 def test_web_task_anonymous_cant_delete(webapp, new_task):
     """
     1. Navigate to the HomePage.
@@ -17,6 +18,7 @@ def test_web_task_anonymous_cant_delete(webapp, new_task):
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.taskdelete
 def test_web_task_delete_option_only_for_own_tasks(
     webapp, new_user, new_task, new_task_default_user
 ):
@@ -33,6 +35,7 @@ def test_web_task_delete_option_only_for_own_tasks(
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.taskdelete
 def test_web_task_delete_task(webapp, new_user, new_task):
     """
     1. Navigate to the HomePage.

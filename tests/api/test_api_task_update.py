@@ -6,8 +6,9 @@ from todoapp.api import TodoAppApiException
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskupdate
 @pytest.mark.vcr()
-def test_task_update_task(api, new_user, new_task):
+def test_api_task_update_task(api, new_user, new_task):
     """
     1. Sign in.
     2. Update a task owned by the authenticated user.
@@ -24,8 +25,9 @@ def test_task_update_task(api, new_user, new_task):
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskupdate
 @pytest.mark.vcr()
-def test_task_update_task_anonymous(api, new_task):
+def test_api_task_update_task_anonymous(api, new_task):
     """
     1. As an anonymous user, update a task (shall failed).
     """
@@ -39,8 +41,9 @@ def test_task_update_task_anonymous(api, new_task):
 
 @pytest.mark.api
 @pytest.mark.task
+@pytest.mark.taskupdate
 @pytest.mark.vcr()
-def test_task_update_task_another_user(api, new_task, default_user):
+def test_api_task_update_task_another_user(api, new_task, default_user):
     """
     1. Sign in.
     2. Update a task owned by the another user (shall failed).

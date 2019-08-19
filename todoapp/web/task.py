@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import time
+
 from selenium.webdriver.common.by import By
 
 from .base import BasePage
@@ -131,6 +133,7 @@ class TaskPage(BasePage):
 
     def delete(self, title=None, done=None):
         self.root.find_element(*self.__selectors["delete"]).wait().click()
+        time.sleep(1)  # TODO find a way to verify itself if it always exists
 
     def mark_done(self):
         self.root.find_element(*self.__selectors["mark_done"]).wait().click()

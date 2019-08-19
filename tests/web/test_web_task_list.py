@@ -4,6 +4,7 @@ import pytest
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.tasklist
 def test_web_task_list_as_anonymous_user(webapp, new_task):
     """
     1. Navigate to the HomePage.
@@ -16,6 +17,7 @@ def test_web_task_list_as_anonymous_user(webapp, new_task):
 
 @pytest.mark.web
 @pytest.mark.task
+@pytest.mark.tasklist
 def test_web_task_list_as_authentified_user(webapp, new_task, default_user):
     """
     1. Navigate to the HomePage.
