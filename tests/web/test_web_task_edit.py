@@ -115,7 +115,7 @@ def test_web_task_edit_title_with_already_existing_title(
 @pytest.mark.taskupdate
 @pytest.mark.bug
 def test_web_task_edit_title_with_too_long_title(
-    webapp, new_user, new_task, new_task_no_tag
+    webapp, new_user, new_task, new_task_no_tag, unique_task_title_too_long
 ):
     """
     1. Navigate to the HomePage.
@@ -128,14 +128,16 @@ def test_web_task_edit_title_with_too_long_title(
     webapp.sign_in(new_user.username, new_user.password)
     task = webapp.taskboard.find_task(new_task.title)
     with pytest.raises(AssertionError):
-        task.edit(title=f"{task.title}('D'*20)"[:21])
+        task.edit(title=unique_task_title_too_long)
 
 
 @pytest.mark.web
 @pytest.mark.task
 @pytest.mark.taskupdate
 @pytest.mark.bug
-def test_web_task_edit_change_tag_name(webapp, new_user, new_task_done_three_tags):
+def test_web_task_edit_change_tag_name(
+    webapp, new_user, new_task_done_three_tags, unique_tag_name
+):
     """
     1. Navigate to the HomePage.
     2. Sign in.
@@ -149,7 +151,7 @@ def test_web_task_edit_change_tag_name(webapp, new_user, new_task_done_three_tag
     webapp.sign_in(new_user.username, new_user.password)
     task = webapp.taskboard.find_task(new_task_done_three_tags.title)
     old_tag_name = new_task_done_three_tags.tags[0].name
-    new_tag_name = f"{old_tag_name}A"
+    new_tag_name = unique_tag_name
     task.edit(tags={old_tag_name: new_tag_name})
     webapp.homepage()
     task = webapp.taskboard.find_task(new_task_done_three_tags.title)
@@ -161,7 +163,7 @@ def test_web_task_edit_change_tag_name(webapp, new_user, new_task_done_three_tag
 @pytest.mark.task
 @pytest.mark.taskupdate
 def test_web_task_edit_change_tag_name_too_long_name(
-    webapp, new_user, new_task_done_three_tags
+    webapp, new_user, new_task_done_three_tags, unique_tag_name_too_long
 ):
     """
     1. Navigate to the HomePage.
@@ -174,6 +176,6 @@ def test_web_task_edit_change_tag_name_too_long_name(
     webapp.sign_in(new_user.username, new_user.password)
     task = webapp.taskboard.find_task(new_task_done_three_tags.title)
     old_tag_name = new_task_done_three_tags.tags[0].name
-    new_tag_name = f"{old_tag_name}{'A'*20}"[:21]
+    new_tag_name = unique_tag_name_too_long
     with pytest.raises(AssertionError):
         task.edit(tags={old_tag_name: new_tag_name})
