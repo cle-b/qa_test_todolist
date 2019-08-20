@@ -58,7 +58,7 @@ def vcr_config():
 
 def random_name(length):
     alphabet = string.ascii_letters + string.digits
-    return "".join(secrets.choice(alphabet) for i in range(16))
+    return "".join(secrets.choice(alphabet) for i in range(length))
 
 
 @pytest.fixture
@@ -69,6 +69,16 @@ def unique_task_title():
 @pytest.fixture
 def unique_tag_name():
     return random_name(16)
+
+
+@pytest.fixture
+def unique_task_title_too_long():
+    return random_name(21)
+
+
+@pytest.fixture
+def unique_tag_name_too_long():
+    return random_name(21)
 
 
 @pytest.fixture
