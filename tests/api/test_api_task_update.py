@@ -16,7 +16,6 @@ def test_api_task_update_status(api, new_user, new_task):
     """
     api.authenticate(new_user.username, new_user.password)
     assert new_task.done is False
-    assert new_task == api.get_task(new_task.id)
     new_task.done = True
     task_updated = api.update_task(new_task.id, new_task)
     assert task_updated == new_task
@@ -32,7 +31,6 @@ def test_api_task_update_task_anonymous(api, new_task):
     1. As an anonymous user, update a task (shall fail).
     """
     assert new_task.done is False
-    assert new_task == api.get_task(new_task.id)
     new_task.done = True
     with pytest.raises(TodoAppApiException) as e_info:
         api.update_task(new_task.id, new_task)
@@ -50,7 +48,6 @@ def test_api_task_update_task_another_user(api, new_task, default_user):
     """
     api.authenticate(default_user.username, default_user.password)
     assert new_task.done is False
-    assert new_task == api.get_task(new_task.id)
     new_task.done = True
     with pytest.raises(TodoAppApiException) as e_info:
         api.update_task(new_task.id, new_task)
@@ -68,8 +65,6 @@ def test_api_task_update_title(api, new_user, new_task, unique_task_title):
     3. Get task description. The task is updated.
     """
     api.authenticate(new_user.username, new_user.password)
-    assert new_task.title != unique_task_title
-    assert new_task == api.get_task(new_task.id)
     new_task.title = unique_task_title
     task_updated = api.update_task(new_task.id, new_task)
     assert task_updated == new_task
@@ -107,8 +102,6 @@ def test_api_task_update_tag(api, new_user, new_task, unique_tag_name):
     3. Get task description. The task is updated.
     """
     api.authenticate(new_user.username, new_user.password)
-    assert new_task.tags[0].name != unique_tag_name
-    assert new_task == api.get_task(new_task.id)
     new_task.tags[0].name = unique_tag_name
     task_updated = api.update_task(new_task.id, new_task)
     assert task_updated.tags[0].name == unique_tag_name
@@ -129,8 +122,6 @@ def test_api_task_update_tag_too_long(
        The new tag name length is 21 characters. (shall fail)
     """
     api.authenticate(new_user.username, new_user.password)
-    assert new_task.tags[0].name != unique_tag_name_too_long
-    assert new_task == api.get_task(new_task.id)
     new_task.tags[0].name = unique_tag_name_too_long
     with pytest.raises(TodoAppApiException):
         api.update_task(new_task.id, new_task)
