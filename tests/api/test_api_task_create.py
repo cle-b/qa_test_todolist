@@ -84,41 +84,36 @@ def test_api_task_create_task_empty_title(api, new_user):
 @pytest.mark.api
 @pytest.mark.task
 @pytest.mark.taskcreate
-@pytest.mark.bug
 @pytest.mark.vcr()
 def test_api_task_create_two_tasks_with_same_title(api, new_user, unique_task_title):
     """
     1. Sign in.
     2. Create a task with a unique title
-    3. Create a task with a the same title
+    3. Create a task with a the same title (shall fail)
     """
     api.authenticate(new_user.username, new_user.password)
-    task1 = api.create_task(Task(unique_task_title))
-    assert task1.title == unique_task_title
-    task2 = api.create_task(Task(unique_task_title))
-    assert task2.title == unique_task_title
+    api.create_task(Task(unique_task_title))
+    with pytest.raises(TodoAppApiException):
+        api.create_task(Task(unique_task_title))
 
 
 @pytest.mark.api
 @pytest.mark.task
 @pytest.mark.taskcreate
-@pytest.mark.bug
 @pytest.mark.vcr()
-def test_api_task_create_two_tasks_with_the_same_title_but_different_tags(
+def test_api_task_create_two_tasks_with_same_tag(
     api, new_user, unique_task_title, unique_tag_name
 ):
     """
     1. Sign in.
     2. Create a task with a unique title and a unique tag
-    3. Create a task with the same title but with a different tag
+    3. Create a task with a unique title and the same tag
     """
     api.authenticate(new_user.username, new_user.password)
-    task1 = api.create_task(Task(unique_task_title, [Tag(f"{unique_tag_name}1")]))
-    assert task1.title == unique_task_title
-    assert task1.tags[0].name == f"{unique_tag_name}1"
-    task2 = api.create_task(Task(unique_task_title, [Tag(f"{unique_tag_name}2")]))
-    assert task2.title == unique_task_title
-    assert task2.tags[0].name == f"{unique_tag_name}2"
+    task1 = api.create_task(Task(f"{unique_task_title}1", [Tag(unique_tag_name)]))
+    task2 = api.create_task(Task(f"{unique_task_title}2", [Tag(unique_tag_name)]))
+    assert task1.tags[0].name == unique_tag_name
+    assert task2.tags[0].name == unique_tag_name
 
 
 @pytest.mark.api
@@ -128,7 +123,7 @@ def test_api_task_create_two_tasks_with_the_same_title_but_different_tags(
 def test_api_task_create_task_with_a_long_title(api, new_user, unique_task_title):
     """
     1. Sign in.
-    2. Create a task with a unique title with 20 characters (shall failed).
+    2. Create a task with a unique title with 20 characters.
     """
     api.authenticate(new_user.username, new_user.password)
     long_title = f"{unique_task_title}{'A'*20}"[:20]

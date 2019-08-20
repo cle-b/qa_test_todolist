@@ -27,6 +27,7 @@ def test_api_user_create_user_with_uncomplete_informations(api, username, passwo
     """
     1. Create a user with uncomplete informations (shall failed).
     """
+    # TODO ask developers to handle correctly this case
     with pytest.raises(TodoAppApiException) as e_info:
         api.create_user(User(username, password))
     assert "HTTP 500" in str(e_info.value)
