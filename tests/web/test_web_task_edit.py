@@ -155,3 +155,25 @@ def test_web_task_edit_change_tag_name(webapp, new_user, new_task_done_three_tag
     task = webapp.taskboard.find_task(new_task_done_three_tags.title)
     assert old_tag_name not in task.tags
     assert new_tag_name in task.tags
+
+
+@pytest.mark.web
+@pytest.mark.task
+@pytest.mark.taskupdate
+def test_web_task_edit_change_tag_name_too_long_name(
+    webapp, new_user, new_task_done_three_tags
+):
+    """
+    1. Navigate to the HomePage.
+    2. Sign in.
+    3. List the tasks. The newly created task is present.
+    4. Update a tag name of a task owned by the authenticated user
+       with a name too long (21 characters) (shall fail)
+    """
+    webapp.homepage()
+    webapp.sign_in(new_user.username, new_user.password)
+    task = webapp.taskboard.find_task(new_task_done_three_tags.title)
+    old_tag_name = new_task_done_three_tags.tags[0].name
+    new_tag_name = f"{old_tag_name}{'A'*20}"[:21]
+    with pytest.raises(AssertionError):
+        task.edit(tags={old_tag_name: new_tag_name})
