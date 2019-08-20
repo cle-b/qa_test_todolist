@@ -136,12 +136,13 @@ def test_api_task_create_task_with_a_long_title(api, new_user, unique_task_title
 @pytest.mark.taskcreate
 @pytest.mark.bug
 @pytest.mark.vcr()
-def test_api_task_create_task_with_a_too_long_title(api, new_user, unique_task_title):
+def test_api_task_create_task_with_a_too_long_title(
+    api, new_user, unique_task_title_too_long
+):
     """
     1. Sign in.
     2. Create a task with a unique title with 21 characters (shall failed).
     """
     api.authenticate(new_user.username, new_user.password)
-    title_too_long = f"{unique_task_title}{'A'*20}"[:21]
     with pytest.raises(TodoAppApiException):
-        api.create_task(Task(title_too_long))
+        api.create_task(Task(unique_task_title_too_long))
