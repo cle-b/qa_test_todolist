@@ -18,6 +18,12 @@ class HomePage(BasePage):
         "taskboard": (By.CSS_SELECTOR, "#content table"),
     }
 
+    def __repr__(self):
+        return f"base_url {self.base_url} user {self.username}"
+
+    def __str__(self):
+        return f"base_url {self.base_url} user {self.username}"
+
     def sign_in(self, username, password):
         """Sign in
 
@@ -37,6 +43,7 @@ class HomePage(BasePage):
         password_elt.send_keys(password)
         navbar_elt.find_element(*self.__selectors["signin"]).click()
         navbar_elt.find_element(*self.__selectors["signout"]).wait()
+        self.username = username
 
     def sign_out(self):
         """Sign out
@@ -47,6 +54,7 @@ class HomePage(BasePage):
         navbar_elt = self.driver.find_element(*self.__selectors["navbar"])
         navbar_elt.find_element(*self.__selectors["signout"]).wait().click()
         navbar_elt.find_element(*self.__selectors["signin"]).wait()
+        self.username = ""
 
     @property
     def me(self):

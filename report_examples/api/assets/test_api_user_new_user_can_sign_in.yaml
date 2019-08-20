@@ -1,0 +1,71 @@
+interactions:
+- request:
+    body: '{"username": "test_api_user_new_user_can_sign_in", "password": "test_api_user_new_user_can_sign_in"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '100'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/users
+  response:
+    body:
+      string: "{\n    \"username\": \"test_api_user_new_user_can_sign_in\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '57'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:19 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"username": "test_api_user_new_user_can_sign_in", "password": "test_api_user_new_user_can_sign_in"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '100'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/authenticate
+  response:
+    body:
+      string: "{\n    \"expires\": 600, \n    \"token\": \"eyJhbGciOiJIUzI1NiIsImV4cCI6MTU2NjMwNjczOSwiaWF0IjoxNTY2MzA2MTM5fQ.eyJpZCI6Mjl9.PjB_xOB9Hu7by1ZnGUk1Ph4nFmupXSn0obSrEC0C2tU\"\
+        , \n    \"username\": \"test_api_user_new_user_can_sign_in\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '219'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:19 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+version: 1

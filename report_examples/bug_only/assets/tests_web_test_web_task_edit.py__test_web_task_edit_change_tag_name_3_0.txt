@@ -1,0 +1,12 @@
+2019-08-20 13:00:01.524000 INFO - Capabilities are: {
+  "browserName": "chrome",
+  "goog:chromeOptions": {
+    "args": [
+    ],
+    "extensions": [
+    ]
+  }
+}
+2019-08-20 13:00:01.524000 INFO - Matched factory org.openqa.selenium.grid.session.remote.ServicedSession$Factory (provider: org.openqa.selenium.chrome.ChromeDriverService)
+2019-08-20 13:00:02.236000 INFO - Detected dialect: W3C
+2019-08-20 13:00:02.238000 INFO - Started new session 42bc60af0bcbb9f39a87eebb854e565b (org.openqa.selenium.chrome.ChromeDriverService)

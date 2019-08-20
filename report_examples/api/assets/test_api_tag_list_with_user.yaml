@@ -1,0 +1,231 @@
+interactions:
+- request:
+    body: '{"username": "UXmZn5wQfUxdw92W", "password": "WqdgiInS0wfg3oZH"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '64'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/users
+  response:
+    body:
+      string: "{\n    \"username\": \"UXmZn5wQfUxdw92W\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:10 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"username": "UXmZn5wQfUxdw92W", "password": "WqdgiInS0wfg3oZH"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '64'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/authenticate
+  response:
+    body:
+      string: "{\n    \"expires\": 600, \n    \"token\": \"eyJhbGciOiJIUzI1NiIsImV4cCI6MTU2NjMwNjczMCwiaWF0IjoxNTY2MzA2MTMwfQ.eyJpZCI6M30.dCVmlM69fFDc5NtoJVmHaEtGeRJpgO6VhEak9f9PEog\"\
+        , \n    \"username\": \"UXmZn5wQfUxdw92W\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '200'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:10 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"title": "4nFntEElMCz1mycT", "tags": ["qI6slA1k5LqvVllY", "s1u97B7Ch7zC0wYW",
+      "tuzj74w42iNQ9rUL"], "date": null, "done": null, "id": null, "username": null}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic ZXlKaGJHY2lPaUpJVXpJMU5pSXNJbVY0Y0NJNk1UVTJOak13Tmpjek1Dd2lhV0YwSWpveE5UWTJNekEyTVRNd2ZRLmV5SnBaQ0k2TTMwLmRDVm1sTTY5ZkZEYzVOdG9KVm1IYUV0R2VSSnBnTzZWaEVhazlmOVBFb2c6ZGF0YWlrdQ==
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '157'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: PUT
+    uri: http://cbrun.qatest.dataiku.com/
+  response:
+    body:
+      string: "{\n    \"date\": \"2019-08-20T15:02:10.232591Z\", \n    \"done\": false,\
+        \ \n    \"id\": 3, \n    \"tags\": [\n        {\n            \"name\": \"\
+        qI6slA1k5LqvVllY\", \n            \"url\": \"http://localhost:5000/tags/4\"\
+        \n        }, \n        {\n            \"name\": \"s1u97B7Ch7zC0wYW\", \n \
+        \           \"url\": \"http://localhost:5000/tags/5\"\n        }, \n     \
+        \   {\n            \"name\": \"tuzj74w42iNQ9rUL\", \n            \"url\":\
+        \ \"http://localhost:5000/tags/6\"\n        }\n    ], \n    \"title\": \"\
+        4nFntEElMCz1mycT\", \n    \"username\": \"UXmZn5wQfUxdw92W\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '510'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:10 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"title": "4nFntEElMCz1mycT", "tags": ["qI6slA1k5LqvVllY", "s1u97B7Ch7zC0wYW",
+      "tuzj74w42iNQ9rUL"], "date": "2019-08-20T15:02:10.232591Z", "done": true, "id":
+      3, "username": "UXmZn5wQfUxdw92W"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic ZXlKaGJHY2lPaUpJVXpJMU5pSXNJbVY0Y0NJNk1UVTJOak13Tmpjek1Dd2lhV0YwSWpveE5UWTJNekEyTVRNd2ZRLmV5SnBaQ0k2TTMwLmRDVm1sTTY5ZkZEYzVOdG9KVm1IYUV0R2VSSnBnTzZWaEVhazlmOVBFb2c6ZGF0YWlrdQ==
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '193'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: PATCH
+    uri: http://cbrun.qatest.dataiku.com/3
+  response:
+    body:
+      string: "{\n    \"date\": \"2019-08-20T15:02:10.232591Z\", \n    \"done\": true,\
+        \ \n    \"id\": 3, \n    \"tags\": [\n        {\n            \"name\": \"\
+        qI6slA1k5LqvVllY\", \n            \"url\": \"http://localhost:5000/tags/4\"\
+        \n        }, \n        {\n            \"name\": \"s1u97B7Ch7zC0wYW\", \n \
+        \           \"url\": \"http://localhost:5000/tags/5\"\n        }, \n     \
+        \   {\n            \"name\": \"tuzj74w42iNQ9rUL\", \n            \"url\":\
+        \ \"http://localhost:5000/tags/6\"\n        }\n    ], \n    \"title\": \"\
+        4nFntEElMCz1mycT\", \n    \"username\": \"UXmZn5wQfUxdw92W\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '509'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:10 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"username": "UXmZn5wQfUxdw92W", "password": "WqdgiInS0wfg3oZH"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '64'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/authenticate
+  response:
+    body:
+      string: "{\n    \"expires\": 600, \n    \"token\": \"eyJhbGciOiJIUzI1NiIsImV4cCI6MTU2NjMwNjczMCwiaWF0IjoxNTY2MzA2MTMwfQ.eyJpZCI6M30.dCVmlM69fFDc5NtoJVmHaEtGeRJpgO6VhEak9f9PEog\"\
+        , \n    \"username\": \"UXmZn5wQfUxdw92W\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '200'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:10 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic ZXlKaGJHY2lPaUpJVXpJMU5pSXNJbVY0Y0NJNk1UVTJOak13Tmpjek1Dd2lhV0YwSWpveE5UWTJNekEyTVRNd2ZRLmV5SnBaQ0k2TTMwLmRDVm1sTTY5ZkZEYzVOdG9KVm1IYUV0R2VSSnBnTzZWaEVhazlmOVBFb2c6ZGF0YWlrdQ==
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://cbrun.qatest.dataiku.com/tags
+  response:
+    body:
+      string: "{\n    \"ABgiFPUR1S61tTlJ\": \"http://localhost:5000/tags/3\", \n \
+        \   \"kfqhn5pu7b4Aqf9f\": \"http://localhost:5000/tags/1\", \n    \"qI6slA1k5LqvVllY\"\
+        : \"http://localhost:5000/tags/4\", \n    \"s1u97B7Ch7zC0wYW\": \"http://localhost:5000/tags/5\"\
+        , \n    \"tuzj74w42iNQ9rUL\": \"http://localhost:5000/tags/6\", \n    \"y2CTZV3Rxz3ajlPE\"\
+        : \"http://localhost:5000/tags/2\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '344'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:10 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+version: 1

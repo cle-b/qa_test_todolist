@@ -1,0 +1,41 @@
+interactions:
+- request:
+    body: '{"title": "mMCiHb59PRDisHjd", "tags": [], "date": null, "done": null, "id":
+      null, "username": null}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic OndpbGxXaW4=
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '99'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: PUT
+    uri: http://cbrun.qatest.dataiku.com/
+  response:
+    body:
+      string: Unauthorized Access
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '19'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Tue, 20 Aug 2019 13:02:09 GMT
+      Server:
+      - nginx/1.12.2
+      WWW-Authenticate:
+      - Basic realm="Authentication Required"
+    status:
+      code: 401
+      message: UNAUTHORIZED
+version: 1

@@ -1,0 +1,41 @@
+interactions:
+- request:
+    body: '{"title": "DXgc6U4VmUBsi9ml", "tags": [], "date": null, "done": null, "id":
+      null, "username": null}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic UUE6d2lsbFdpbg==
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '99'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: PUT
+    uri: http://cbrun.qatest.dataiku.com/
+  response:
+    body:
+      string: "{\n    \"date\": \"2019-08-20T15:02:09.382117Z\", \n    \"done\": false,\
+        \ \n    \"id\": 1, \n    \"tags\": [], \n    \"title\": \"DXgc6U4VmUBsi9ml\"\
+        , \n    \"username\": \"QA\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '154'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:09 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+version: 1

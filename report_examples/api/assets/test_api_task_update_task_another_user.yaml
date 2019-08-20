@@ -1,0 +1,184 @@
+interactions:
+- request:
+    body: '{"username": "7l4W8t5VPssiKms3", "password": "oZQ0T7kgPK4JvdIv"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '64'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/users
+  response:
+    body:
+      string: "{\n    \"username\": \"7l4W8t5VPssiKms3\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:16 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"username": "7l4W8t5VPssiKms3", "password": "oZQ0T7kgPK4JvdIv"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '64'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/authenticate
+  response:
+    body:
+      string: "{\n    \"expires\": 600, \n    \"token\": \"eyJhbGciOiJIUzI1NiIsImV4cCI6MTU2NjMwNjczNiwiaWF0IjoxNTY2MzA2MTM2fQ.eyJpZCI6MjF9.xC7EDB3vcX-tFwb7Nd8hNDrUqgN1XT8IufNecACF_Os\"\
+        , \n    \"username\": \"7l4W8t5VPssiKms3\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '201'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:16 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"title": "PGzEFjEwPSNPUTDm", "tags": ["ZWUtdO4U6qhPktg8"], "date": null,
+      "done": null, "id": null, "username": null}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic ZXlKaGJHY2lPaUpJVXpJMU5pSXNJbVY0Y0NJNk1UVTJOak13Tmpjek5pd2lhV0YwSWpveE5UWTJNekEyTVRNMmZRLmV5SnBaQ0k2TWpGOS54QzdFREIzdmNYLXRGd2I3TmQ4aE5EclVxZ04xWFQ4SXVmTmVjQUNGX09zOmRhdGFpa3U=
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '117'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: PUT
+    uri: http://cbrun.qatest.dataiku.com/
+  response:
+    body:
+      string: "{\n    \"date\": \"2019-08-20T15:02:16.685930Z\", \n    \"done\": false,\
+        \ \n    \"id\": 22, \n    \"tags\": [\n        {\n            \"name\": \"\
+        ZWUtdO4U6qhPktg8\", \n            \"url\": \"http://localhost:5000/tags/20\"\
+        \n        }\n    ], \n    \"title\": \"PGzEFjEwPSNPUTDm\", \n    \"username\"\
+        : \"7l4W8t5VPssiKms3\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '286'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:16 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"username": "QA", "password": "willWin"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '41'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/authenticate
+  response:
+    body:
+      string: "{\n    \"expires\": 600, \n    \"token\": \"eyJhbGciOiJIUzI1NiIsImV4cCI6MTU2NjMwNjczNiwiaWF0IjoxNTY2MzA2MTM2fQ.eyJpZCI6MX0.ZYk2BEwP2S5LWUTSPALfXAysjSwcSc700CklPfklWik\"\
+        , \n    \"username\": \"QA\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '186'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:16 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"title": "PGzEFjEwPSNPUTDm", "tags": ["ZWUtdO4U6qhPktg8"], "date": "2019-08-20T15:02:16.685930Z",
+      "done": true, "id": 22, "username": "7l4W8t5VPssiKms3"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic ZXlKaGJHY2lPaUpJVXpJMU5pSXNJbVY0Y0NJNk1UVTJOak13Tmpjek5pd2lhV0YwSWpveE5UWTJNekEyTVRNMmZRLmV5SnBaQ0k2TVgwLlpZazJCRXdQMlM1TFdVVFNQQUxmWEF5c2pTd2NTYzcwMENrbFBma2xXaWs6ZGF0YWlrdQ==
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '154'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: PATCH
+    uri: http://cbrun.qatest.dataiku.com/22
+  response:
+    body:
+      string: "{\n    \"message\": \"You're not the owner of this task\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '55'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:16 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 403
+      message: FORBIDDEN
+version: 1
