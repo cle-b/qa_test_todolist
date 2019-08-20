@@ -25,7 +25,7 @@ def test_api_user_create_user_success(api):
 )
 def test_api_user_create_user_with_uncomplete_informations(api, username, password):
     """
-    1. Create a user with uncomplete informations (shall failed).
+    1. Create a user with uncomplete informations (shall fail).
     """
     # TODO ask developers to handle correctly this case
     with pytest.raises(TodoAppApiException) as e_info:
@@ -39,7 +39,7 @@ def test_api_user_create_user_with_uncomplete_informations(api, username, passwo
 def test_api_user_create_users_with_the_same_username(api):
     """
     1. Create a user with a unique name and a unique password.
-    2. Create another user with the same informations (shall failed).
+    2. Create another user with the same informations (shall fail).
     """
     # TODO ask developers to handle correctly this case
     username = "test_api_user_create_the_same_user_twice"

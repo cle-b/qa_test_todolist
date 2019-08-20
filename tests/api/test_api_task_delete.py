@@ -28,7 +28,7 @@ def test_api_task_delete_task(api, new_user, new_task):
 def test_api_task_delete_task_anonymous(api, new_task):
     """
     1. List the tasks. The newly created task is present.
-    2. Delete a task owned by an other user (shall failed).
+    2. Delete a task owned by an other user (shall fail).
     """
     assert new_task in api.list_tasks()
     with pytest.raises(TodoAppApiException) as e_info:
@@ -45,7 +45,7 @@ def test_api_task_delete_task_another_user(api, new_task, default_user):
     """
     1. Sign in.
     2. List the tasks. The newly created task is present.
-    3. Delete a task not owned by to the authenticated user (shall failed).
+    3. Delete a task not owned by to the authenticated user (shall fail).
     """
     api.authenticate(default_user.username, default_user.password)
     assert new_task in api.list_tasks()

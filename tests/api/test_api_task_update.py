@@ -87,7 +87,7 @@ def test_api_task_update_title_too_long(
     """
     1. Sign in.
     2. Update the title of a task owned by the authenticated user. The new title
-       length is 21 characters. (shall failed)
+       length is 21 characters. (shall fail)
     """
     api.authenticate(new_user.username, new_user.password)
     new_task.title = unique_task_title_too_long
@@ -126,7 +126,7 @@ def test_api_task_update_tag_too_long(
     """
     1. Sign in.
     2. Update the tag name of a task owned by the authenticated user.
-       The new tag name length is 21 characters. (shall failed)
+       The new tag name length is 21 characters. (shall fail)
     """
     api.authenticate(new_user.username, new_user.password)
     assert new_task.tags[0].name != unique_tag_name_too_long

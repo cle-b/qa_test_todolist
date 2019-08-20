@@ -39,7 +39,7 @@ def test_api_authentication_success_token(api, default_user):
 def test_api_authentication_failed_basic(api, username, password, unique_task_title):
     """
     1.  Sign in with bad credentials using basic mode
-    2. Create a task (shall failed).
+    2. Create a task (shall fail).
     """
     api.authenticate(username, password, mode="basic")
     with pytest.raises(TodoAppApiException) as e_info:
@@ -55,7 +55,7 @@ def test_api_authentication_failed_basic(api, username, password, unique_task_ti
 )
 def test_api_authentication_failed_token(api, username, password):
     """
-    1.  Sign in with bad credentials using token mode (shall failed).
+    1.  Sign in with bad credentials using token mode (shall fail).
     """
     with pytest.raises(TodoAppApiException) as e_info:
         api.authenticate(username, password, mode="token")

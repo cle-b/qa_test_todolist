@@ -60,7 +60,7 @@ def test_api_task_create_task_with_many_tags(
 @pytest.mark.vcr()
 def test_api_task_create_task_anonymous(api, unique_task_title):
     """
-    1. Create a task (user not authentified) (shall failed)
+    1. Create a task (user not authentified) (shall fail)
     """
     with pytest.raises(TodoAppApiException) as e_info:
         api.create_task(Task(unique_task_title))
@@ -89,7 +89,7 @@ def test_api_task_create_two_tasks_with_same_title(api, new_user, unique_task_ti
     """
     1. Sign in.
     2. Create a task with a unique title
-    3. Create a task with a the same title (shall fail)
+    3. Create a task with the same title (shall fail)
     """
     api.authenticate(new_user.username, new_user.password)
     api.create_task(Task(unique_task_title))
@@ -107,7 +107,7 @@ def test_api_task_create_two_tasks_with_same_tag(
     """
     1. Sign in.
     2. Create a task with a unique title and a unique tag
-    3. Create a task with a unique title and the same tag
+    3. Create a task with another title and the same tag
     """
     api.authenticate(new_user.username, new_user.password)
     task1 = api.create_task(Task(f"{unique_task_title}1", [Tag(unique_tag_name)]))
@@ -141,7 +141,7 @@ def test_api_task_create_task_with_a_too_long_title(
 ):
     """
     1. Sign in.
-    2. Create a task with a unique title with 21 characters (shall failed).
+    2. Create a task with a unique title with 21 characters (shall fail).
     """
     api.authenticate(new_user.username, new_user.password)
     with pytest.raises(TodoAppApiException):
