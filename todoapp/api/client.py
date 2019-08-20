@@ -45,19 +45,21 @@ class TodoAppAPI(object):
         """Initialize the client.
 
         Arguments:
-            base_url {str} -- the landing page URL
+            base_url {str} -- the base URL of the API
         """
         self.base_url = urljoin(base_url, "/")[:-1]  # remove the last /
         self.session = requests.Session()
+        self.username = ""
 
     def __repr__(self):
-        return f"base_url {self.base_url}"
+        return f"base_url {self.base_url} user {self.username}"
 
     def __str__(self):
-        return f"base_url {self.base_url}"
+        return f"base_url {self.base_url} user {self.username}"
 
     def _auth_basic(self, username, password):
         self.session.auth = (username, password)
+        self.username = username
 
     def _auth_token(self, username, password):
         payload = {"username": username, "password": password}
@@ -68,6 +70,7 @@ class TodoAppAPI(object):
         token = Token().from_json(response.json())
 
         self.session.auth = (token.token, "dataiku")
+        self.username = username
 
         return token
 
@@ -224,7 +227,14 @@ class TodoAppAPI(object):
 
         check_status(response, 200, "Unable to list tags")
 
-        return [Tag().from_json(tag) for tag in response.json()]
+        # the API not returns a list of Tag but a dict where a key is a tagname
+        # and the value is a url
+        tags = []
+        for name, url in response.json().items():
+            tag = Tag(name)
+            tag.url = url
+            tags.append(tag)
+        return tags
 
     def get_tag(self, id):
         """Get the tag description

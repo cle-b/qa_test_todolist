@@ -23,7 +23,7 @@ def test_web_authentication_success(webapp, default_user):
 def test_web_authentication_fail(webapp, username, password):
     """
     1. Navigate to the Homepage.
-    2. Sign in with wrong credentials (shall failed).
+    2. Sign in with wrong credentials (shall fail).
     """
     webapp.homepage()
     with pytest.raises(WebDriverException):
