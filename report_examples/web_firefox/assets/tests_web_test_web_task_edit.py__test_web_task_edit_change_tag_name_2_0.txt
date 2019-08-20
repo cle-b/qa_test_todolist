@@ -1,0 +1,551 @@
+<html><head>
+<title>ToDo or not ToDO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="index.css" rel="stylesheet">
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.js"></script>
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+<script src="knockout.mapping.min.js"></script>
+
+</head>
+<body>
+<div id="main">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Dataiku QA Interview</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+              <form class="navbar-form navbar-right" data-bind="visible: !authenticated()" style="display: none;">
+                <div class="form-group">
+                  <input type="text" name="username" placeholder="Username" class="form-control">
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" placeholder="Password" class="form-control">
+                </div>
+                <button data-bind="click: authenticate" class="btn btn-success">Sign in</button>
+              </form>
+            <form class="navbar-form navbar-right" data-bind="visible: authenticated()">
+                <button data-bind="click: logout" class="btn btn-primary">Sign out (<span data-bind="text: username">cBl2025Q1V5dI9z9</span>)</button>
+            </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div id="content" class="container" style="margin-top:70px">
+
+        <table class="table table-striped">
+            <tbody><tr><td style="width: 1px;"></td>
+                <td><b>Task</b></td>
+                <td><b>Owner</b></td>
+                <td><b>Options</b></td>
+                <td><b>Tags list</b></td>
+                <td><b>Date</b></td>
+            </tr>
+            <!-- ko foreach: { data: tasks, as: 'task' } -->
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">zOoTCP7NuIhiohI5</b></p></td>
+                <td><b data-bind="text: username">rekobpp1JdKke28D</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="1">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">Tpbti2hOQ6al69zU</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:07:51.435156Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">ZbKWgjB1hNIoJhAK</b></p></td>
+                <td><b data-bind="text: username">LEY5e1nCjOLXKybu</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="2">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">OfOASqxML9KKwpfW</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:07:56.724228Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">Zbytemam1cYj4oob</b></p></td>
+                <td><b data-bind="text: username">QA</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="3">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">5VsxuIQcQutlWqif</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:07:56.788898Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">vifIWftcRNLUnXwL</b></p></td>
+                <td><b data-bind="text: username">y6mIHDNzIOl383Nr</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="5">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">WWeviDyLai6u2rEo</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:11.182627Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">tYf51aHyBVrom08P</b></p></td>
+                <td><b data-bind="text: username">CQf2ev4LRMLdmh8t</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="6">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">euF4BnA2GjxAPtk8</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:18.355957Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">HCEknpPswfY7OPu5</b></p></td>
+                <td><b data-bind="text: username">QA</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="7">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">1He99SNLQ4tLFLVr</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:18.458124Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">Eqwf59dxrUbm5wjW</b></p></td>
+                <td><b data-bind="text: username">Ht6dLNR2rN8KcoQq</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="8">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">QZ1Fn4OppkXEEiEg</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:25.920637Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important" style="display: none;">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">jziSfSsESCAuNXMh</b></p></td>
+                <td><b data-bind="text: username">xJbJFjLv7y97EiXP</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="9">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">Xkz4enhaxRvUfKbW</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:32.598766Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">6p3lR9UdpyUalGbP</b></p></td>
+                <td><b data-bind="text: username">eBuYaEh6ROQ6klrh</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="10">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">YQA9OTB9HRlGevSy</span>
+                    
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">RAZVNrQI1Zygy1mx</span>
+                    
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">3GKbvGwImf19qL41</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:39.993871Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">6n3nvegLmyTDXT02</b></p></td>
+                <td><b data-bind="text: username">3qLg4Y3cdmKDOi0u</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="11">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">ciB07RxjaVrCCNyt</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:46.694358Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">KsFoYpCSstv1Yem0</b></p></td>
+                <td><b data-bind="text: username">3qLg4Y3cdmKDOi0u</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="12">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} --><!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:46.757956Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">PI0KpIwIkDR8t4ohmya0g</b></p></td>
+                <td><b data-bind="text: username">ICTSfjkK4yQGeZh8</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="13">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">ESDGXL61piscv7ry</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:54.110266Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success" style="display: none;">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">YJ7JEcVnPvwpXaV8</b></p></td>
+                <td><b data-bind="text: username">ICTSfjkK4yQGeZh8</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary" style="display: none;"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger" style="display: none;"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="14">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} --><!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:08:54.177384Z</span> </td>
+            </tr>
+            
+            <tr>
+
+                <td>
+                    <span data-bind="visible: done" class="label label-success">Done</span>
+                    <span data-bind="visible: !done()" class="label label-important" style="display: none;">In Progress</span>
+                </td>
+
+                <td><p><b data-bind="text: title">oDItXEYX76enFBq5</b></p></td>
+                <td><b data-bind="text: username">cBl2025Q1V5dI9z9</b><p></p></td>
+                <td>
+                    <button data-bind="click: $parent.beginEdit, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-pencil btn btn-xs btn-primary"> Edit</button>
+                    <button data-bind="click: $parent.remove, visible: $parent.authenticated() &amp;&amp; $parent.username() == username()" class="glyphicon glyphicon-trash btn btn-xs btn-danger"> Delete</button>
+                    <span data-bind="visible: done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()">
+                        <button data-bind="click: $parent.markInProgress" class="btn btn-default btn-xs glyphicon glyphicon-list-alt"> Mark In Progress</button>
+                    </span>
+                    <span data-bind="visible: !done() &amp;&amp; $parent.authenticated() &amp;&amp; $parent.username() == username()" style="display: none;">
+                        <button data-bind="click: $parent.markDone" class="btn btn-success btn-xs glyphicon glyphicon-ok"> Mark Done</button>
+                    </span>
+                    <span data-bind="visible: !$parent.authenticated()" style="display: none;">You need to be authenticated to see options</span>
+                </td>
+                <td>
+                    <input type="hidden" name="task-id" data-bind="value: id()" value="15">
+                    <!-- ko foreach: {data: task.tags, as: 'tag'} -->
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">YwcLkZzgFxKxuP26</span>
+                    
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">g1rws9bHdXqKtZwb</span>
+                    
+
+                    <span class="glyphicon glyphicon-tag task-tag label label-info" data-bind="text: tag.name">jHN6yHFsWhsaPB4K</span>
+                    <!-- /ko --></td>
+                <td><span data-bind="text: date">2019-08-20T15:09:01.298296Z</span> </td>
+            </tr>
+            <!-- /ko -->
+        </tbody></table>
+        
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <strong>ERROR!</strong> Bad server response status <span class="error-status"></span>
+        </div>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <strong>WARNING!</strong><span class="error-text"></span> <span class="error-status"></span>
+        </div>
+    </div>
+
+</div>
+
+
+
+    <div id="add" class="modal-edit modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">Update a task</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-addon">Title</span>
+                  <input data-bind="value: title" type="text" class="form-control" placeholder="Task title" aria-describedby="sizing-addon3">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" for="inputTags">Tags (separated by spaces)</span>
+                        <input class="form-control" data-bind="value: tags" type="text" placeholder="Tags" style="width: 300px;">
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" data-bind="click:addTask" class="btn btn-primary">Add task</button>
+                </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Edit -->
+    <div id="edit" class="modal-edit modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">Update a task</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-addon">Title</span>
+                  <input data-bind="value: title" type="text" class="form-control" placeholder="Task title" aria-describedby="sizing-addon3">
+                </div>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Done ?</span>
+                    <span class="input-group-addon">
+                        <input data-bind="checked: done" type="checkbox" class="form-control" placeholder="Task title" aria-describedby="sizing-addon3">
+                    </span>
+
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" for="inputTags">Tags</span>
+                    <!-- ko foreach: { data: tags(), as: 'tag' } --><!-- /ko -->
+                </div>
+                </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" data-bind="click:editTask" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="models.js">
+    </script>
+
+</body></html>

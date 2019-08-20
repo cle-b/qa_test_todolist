@@ -1,0 +1,36 @@
+interactions:
+- request:
+    body: '{"username": "QA", "password": ""}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '34'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/authenticate
+  response:
+    body:
+      string: "{\n    \"message\": \"Bad authentication\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '40'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:09 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 401
+      message: UNAUTHORIZED
+version: 1

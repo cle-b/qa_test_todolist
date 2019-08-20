@@ -1,0 +1,220 @@
+interactions:
+- request:
+    body: '{"username": "EY5Mpk8vFoLCVEht", "password": "xPpQYzNHcMtYmuiI"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '64'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/users
+  response:
+    body:
+      string: "{\n    \"username\": \"EY5Mpk8vFoLCVEht\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:15 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"username": "EY5Mpk8vFoLCVEht", "password": "xPpQYzNHcMtYmuiI"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '64'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/authenticate
+  response:
+    body:
+      string: "{\n    \"expires\": 600, \n    \"token\": \"eyJhbGciOiJIUzI1NiIsImV4cCI6MTU2NjMwNjczNSwiaWF0IjoxNTY2MzA2MTM1fQ.eyJpZCI6MTd9.OKLbRpSVCYF3ElVFDpjw_2V52MTt_Dc-FZdsTGBqf4Y\"\
+        , \n    \"username\": \"EY5Mpk8vFoLCVEht\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '201'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:15 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"title": "mCQajF7JwPVHdp08", "tags": ["IJQxr3mS5SIMvn8h"], "date": null,
+      "done": null, "id": null, "username": null}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic ZXlKaGJHY2lPaUpJVXpJMU5pSXNJbVY0Y0NJNk1UVTJOak13Tmpjek5Td2lhV0YwSWpveE5UWTJNekEyTVRNMWZRLmV5SnBaQ0k2TVRkOS5PS0xiUnBTVkNZRjNFbFZGRHBqd18yVjUyTVR0X0RjLUZaZHNUR0JxZjRZOmRhdGFpa3U=
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '117'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: PUT
+    uri: http://cbrun.qatest.dataiku.com/
+  response:
+    body:
+      string: "{\n    \"date\": \"2019-08-20T15:02:15.318622Z\", \n    \"done\": false,\
+        \ \n    \"id\": 18, \n    \"tags\": [\n        {\n            \"name\": \"\
+        IJQxr3mS5SIMvn8h\", \n            \"url\": \"http://localhost:5000/tags/16\"\
+        \n        }\n    ], \n    \"title\": \"mCQajF7JwPVHdp08\", \n    \"username\"\
+        : \"EY5Mpk8vFoLCVEht\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '286'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:15 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://cbrun.qatest.dataiku.com/
+  response:
+    body:
+      string: "[\n    {\n        \"date\": \"2019-08-20T15:02:09.382117Z\", \n   \
+        \     \"done\": false, \n        \"id\": 1, \n        \"tags\": [], \n   \
+        \     \"title\": \"DXgc6U4VmUBsi9ml\", \n        \"username\": \"QA\"\n  \
+        \  }, \n    {\n        \"date\": \"2019-08-20T15:02:09.997534Z\", \n     \
+        \   \"done\": true, \n        \"id\": 2, \n        \"tags\": [\n         \
+        \   {\n                \"name\": \"kfqhn5pu7b4Aqf9f\", \n                \"\
+        url\": \"http://localhost:5000/tags/1\"\n            }, \n            {\n\
+        \                \"name\": \"ABgiFPUR1S61tTlJ\", \n                \"url\"\
+        : \"http://localhost:5000/tags/3\"\n            }, \n            {\n     \
+        \           \"name\": \"y2CTZV3Rxz3ajlPE\", \n                \"url\": \"\
+        http://localhost:5000/tags/2\"\n            }\n        ], \n        \"title\"\
+        : \"2nTQceoOdajGUfCW\", \n        \"username\": \"XeOAphL7YOEtnPjb\"\n   \
+        \ }, \n    {\n        \"date\": \"2019-08-20T15:02:10.232591Z\", \n      \
+        \  \"done\": true, \n        \"id\": 3, \n        \"tags\": [\n          \
+        \  {\n                \"name\": \"s1u97B7Ch7zC0wYW\", \n                \"\
+        url\": \"http://localhost:5000/tags/5\"\n            }, \n            {\n\
+        \                \"name\": \"tuzj74w42iNQ9rUL\", \n                \"url\"\
+        : \"http://localhost:5000/tags/6\"\n            }, \n            {\n     \
+        \           \"name\": \"qI6slA1k5LqvVllY\", \n                \"url\": \"\
+        http://localhost:5000/tags/4\"\n            }\n        ], \n        \"title\"\
+        : \"4nFntEElMCz1mycT\", \n        \"username\": \"UXmZn5wQfUxdw92W\"\n   \
+        \ }, \n    {\n        \"date\": \"2019-08-20T15:02:10.514492Z\", \n      \
+        \  \"done\": false, \n        \"id\": 4, \n        \"tags\": [], \n      \
+        \  \"title\": \"rGaaSisGvL9uXRDe\", \n        \"username\": \"8eiwQcxalKaBytkp\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:10.655197Z\", \n  \
+        \      \"done\": false, \n        \"id\": 5, \n        \"tags\": [\n     \
+        \       {\n                \"name\": \"rrCLoe2tAYQaLwWE\", \n            \
+        \    \"url\": \"http://localhost:5000/tags/7\"\n            }\n        ],\
+        \ \n        \"title\": \"O5p7TDuPIjTPjC2F\", \n        \"username\": \"TstaQmxwTfBjQPPF\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:10.798832Z\", \n  \
+        \      \"done\": false, \n        \"id\": 6, \n        \"tags\": [\n     \
+        \       {\n                \"name\": \"BuXKzSe9lYeU7fIa1\", \n           \
+        \     \"url\": \"http://localhost:5000/tags/8\"\n            }, \n       \
+        \     {\n                \"name\": \"BuXKzSe9lYeU7fIa2\", \n             \
+        \   \"url\": \"http://localhost:5000/tags/9\"\n            }\n        ], \n\
+        \        \"title\": \"tv45FMVkBYdGNOi8\", \n        \"username\": \"I64WGHcGw45wh8pn\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:11.024516Z\", \n  \
+        \      \"done\": false, \n        \"id\": 7, \n        \"tags\": [], \n  \
+        \      \"title\": \"\", \n        \"username\": \"QW4qY8OP0PlGvpG8\"\n   \
+        \ }, \n    {\n        \"date\": \"2019-08-20T15:02:11.161593Z\", \n      \
+        \  \"done\": false, \n        \"id\": 8, \n        \"tags\": [], \n      \
+        \  \"title\": \"UVpN4J9sy3ZLNSc7\", \n        \"username\": \"b8EDyCh5gU1ByIWx\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:11.333637Z\", \n  \
+        \      \"done\": false, \n        \"id\": 9, \n        \"tags\": [\n     \
+        \       {\n                \"name\": \"LXCc0cR0bk4t2bRx\", \n            \
+        \    \"url\": \"http://localhost:5000/tags/10\"\n            }\n        ],\
+        \ \n        \"title\": \"LAPHKkYgq91z2Dpg1\", \n        \"username\": \"uOAkI1aqVKeu9luG\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:11.365022Z\", \n  \
+        \      \"done\": false, \n        \"id\": 10, \n        \"tags\": [\n    \
+        \        {\n                \"name\": \"LXCc0cR0bk4t2bRx\", \n           \
+        \     \"url\": \"http://localhost:5000/tags/10\"\n            }\n        ],\
+        \ \n        \"title\": \"LAPHKkYgq91z2Dpg2\", \n        \"username\": \"uOAkI1aqVKeu9luG\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:11.507751Z\", \n  \
+        \      \"done\": false, \n        \"id\": 11, \n        \"tags\": [], \n \
+        \       \"title\": \"M6He2tLV9a0J7iWOAAAA\", \n        \"username\": \"ND34FC0J1GNmX83N\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:11.639580Z\", \n  \
+        \      \"done\": false, \n        \"id\": 12, \n        \"tags\": [], \n \
+        \       \"title\": \"wKLQSFqqdHMqy2dWBaz3U\", \n        \"username\": \"0IP8moshO7EuUVSS\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:12.193330Z\", \n  \
+        \      \"done\": false, \n        \"id\": 14, \n        \"tags\": [\n    \
+        \        {\n                \"name\": \"SOTgxI2yylVD7Fn3\", \n           \
+        \     \"url\": \"http://localhost:5000/tags/12\"\n            }\n        ],\
+        \ \n        \"title\": \"UVIslTNgpuGs1xDl\", \n        \"username\": \"kC4fIbYLe3RvgbFV\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:12.904175Z\", \n  \
+        \      \"done\": false, \n        \"id\": 16, \n        \"tags\": [\n    \
+        \        {\n                \"name\": \"nN448R0q8sQEf93z\", \n           \
+        \     \"url\": \"http://localhost:5000/tags/14\"\n            }\n        ],\
+        \ \n        \"title\": \"Ng6rKWvrWlZiEW2p\", \n        \"username\": \"Qx3GUQu53JnPESfK\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:14.630836Z\", \n  \
+        \      \"done\": false, \n        \"id\": 17, \n        \"tags\": [\n    \
+        \        {\n                \"name\": \"AlAqIvwpnGeqXjkE\", \n           \
+        \     \"url\": \"http://localhost:5000/tags/15\"\n            }\n        ],\
+        \ \n        \"title\": \"B3YpbKGCqOASxUkF\", \n        \"username\": \"OebLPGD8Kw2KKtwO\"\
+        \n    }, \n    {\n        \"date\": \"2019-08-20T15:02:15.318622Z\", \n  \
+        \      \"done\": false, \n        \"id\": 18, \n        \"tags\": [\n    \
+        \        {\n                \"name\": \"IJQxr3mS5SIMvn8h\", \n           \
+        \     \"url\": \"http://localhost:5000/tags/16\"\n            }\n        ],\
+        \ \n        \"title\": \"mCQajF7JwPVHdp08\", \n        \"username\": \"EY5Mpk8vFoLCVEht\"\
+        \n    }\n]\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '5233'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:15 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+version: 1

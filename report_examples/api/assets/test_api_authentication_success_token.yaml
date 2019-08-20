@@ -1,0 +1,37 @@
+interactions:
+- request:
+    body: '{"username": "QA", "password": "willWin"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '41'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://cbrun.qatest.dataiku.com/authenticate
+  response:
+    body:
+      string: "{\n    \"expires\": 600, \n    \"token\": \"eyJhbGciOiJIUzI1NiIsImV4cCI6MTU2NjMwNjcyOSwiaWF0IjoxNTY2MzA2MTI5fQ.eyJpZCI6MX0.yBRNXigIBAK-J8zrrgUFEEYT-kUJFxHh_aLyaZbk4W8\"\
+        , \n    \"username\": \"QA\"\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '186'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Aug 2019 13:02:09 GMT
+      Server:
+      - nginx/1.12.2
+    status:
+      code: 200
+      message: OK
+version: 1

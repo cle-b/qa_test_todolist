@@ -1,10 +1,11 @@
 # vscode
 .vscode
 
-# html report
-assets
-*.htm
-reports
+# reports
+/assets
+/reports
+/*.html
+/*.htm
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

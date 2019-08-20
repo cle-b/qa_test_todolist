@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Test Report</title>
+    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
+  <body onLoad="init()">
+    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+function toArray(iter) {
+    if (iter === null) {
+        return null;
+    }
+    return Array.prototype.slice.call(iter);
+}
+
+function find(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return elem.querySelector(selector);
+}
+
+function find_all(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return toArray(elem.querySelectorAll(selector));
+}
+
+function sort_column(elem) {
+    toggle_sort_states(elem);
+    var colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
+    var key;
+    if (elem.classList.contains('numeric')) {
+        key = key_num;
+    } else if (elem.classList.contains('result')) {
+        key = key_result;
+    } else {
+        key = key_alpha;
+    }
+    sort_table(elem, key(colIndex));
+}
+
+function show_all_extras() {
+    find_all('.col-result').forEach(show_extras);
+}
+
+function hide_all_extras() {
+    find_all('.col-result').forEach(hide_extras);
+}
+
+function show_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.remove("collapsed");
+    expandcollapse.classList.remove("expander");
+    expandcollapse.classList.add("collapser");
+}
+
+function hide_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.add("collapsed");
+    expandcollapse.classList.remove("collapser");
+    expandcollapse.classList.add("expander");
+}
+
+function show_filters() {
+    var filter_items = document.getElementsByClassName('filter');
+    for (var i = 0; i < filter_items.length; i++)
+        filter_items[i].hidden = false;
+}
+
+function add_collapse() {
+    // Add links for show/hide all
+    var resulttable = find('table#results-table');
+    var showhideall = document.createElement("p");
+    showhideall.innerHTML = '<a href="javascript:show_all_extras()">Show all details</a> / ' +
+                            '<a href="javascript:hide_all_extras()">Hide all details</a>';
+    resulttable.parentElement.insertBefore(showhideall, resulttable);
+
+    // Add show/hide link to each result
+    find_all('.col-result').forEach(function(elem) {
+        var collapsed = get_query_parameter('collapsed') || 'Passed';
+        var extras = elem.parentNode.nextElementSibling;
+        var expandcollapse = document.createElement("span");
+        if (collapsed.includes(elem.innerHTML)) {
+            extras.classList.add("collapsed");
+            expandcollapse.classList.add("expander");
+        } else {
+            expandcollapse.classList.add("collapser");
+        }
+        elem.appendChild(expandcollapse);
+
+        elem.addEventListener("click", function(event) {
+            if (event.currentTarget.parentNode.nextElementSibling.classList.contains("collapsed")) {
+                show_extras(event.currentTarget);
+            } else {
+                hide_extras(event.currentTarget);
+            }
+        });
+    })
+}
+
+function get_query_parameter(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function init () {
+    reset_sort_headers();
+
+    add_collapse();
+
+    show_filters();
+
+    toggle_sort_states(find('.initial-sort'));
+
+    find_all('.sortable').forEach(function(elem) {
+        elem.addEventListener("click",
+                              function(event) {
+                                  sort_column(elem);
+                              }, false)
+    });
+
+};
+
+function sort_table(clicked, key_func) {
+    var rows = find_all('.results-table-row');
+    var reversed = !clicked.classList.contains('asc');
+    var sorted_rows = sort(rows, key_func, reversed);
+    /* Whole table is removed here because browsers acts much slower
+     * when appending existing elements.
+     */
+    var thead = document.getElementById("results-table-head");
+    document.getElementById('results-table').remove();
+    var parent = document.createElement("table");
+    parent.id = "results-table";
+    parent.appendChild(thead);
+    sorted_rows.forEach(function(elem) {
+        parent.appendChild(elem);
+    });
+    document.getElementsByTagName("BODY")[0].appendChild(parent);
+}
+
+function sort(items, key_func, reversed) {
+    var sort_array = items.map(function(item, i) {
+        return [key_func(item), i];
+    });
+    var multiplier = reversed ? -1 : 1;
+
+    sort_array.sort(function(a, b) {
+        var key_a = a[0];
+        var key_b = b[0];
+        return multiplier * (key_a >= key_b ? 1 : -1);
+    });
+
+    return sort_array.map(function(item) {
+        var index = item[1];
+        return items[index];
+    });
+}
+
+function key_alpha(col_index) {
+    return function(elem) {
+        return elem.childNodes[1].childNodes[col_index].firstChild.data.toLowerCase();
+    };
+}
+
+function key_num(col_index) {
+    return function(elem) {
+        return parseFloat(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function key_result(col_index) {
+    return function(elem) {
+        var strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
+                       'Skipped', 'Passed'];
+        return strings.indexOf(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function reset_sort_headers() {
+    find_all('.sort-icon').forEach(function(elem) {
+        elem.parentNode.removeChild(elem);
+    });
+    find_all('.sortable').forEach(function(elem) {
+        var icon = document.createElement("div");
+        icon.className = "sort-icon";
+        icon.textContent = "vvv";
+        elem.insertBefore(icon, elem.firstChild);
+        elem.classList.remove("desc", "active");
+        elem.classList.add("asc", "inactive");
+    });
+}
+
+function toggle_sort_states(elem) {
+    //if active, toggle between asc and desc
+    if (elem.classList.contains('active')) {
+        elem.classList.toggle('asc');
+        elem.classList.toggle('desc');
+    }
+
+    //if inactive, reset all other functions and add ascending active
+    if (elem.classList.contains('inactive')) {
+        reset_sort_headers();
+        elem.classList.remove('inactive');
+        elem.classList.add('active');
+    }
+}
+
+function is_all_rows_hidden(value) {
+  return value.hidden == false;
+}
+
+function filter_table(elem) {
+    var outcome_att = "data-test-result";
+    var outcome = elem.getAttribute(outcome_att);
+    class_outcome = outcome + " results-table-row";
+    var outcome_rows = document.getElementsByClassName(class_outcome);
+
+    for(var i = 0; i < outcome_rows.length; i++){
+        outcome_rows[i].hidden = !elem.checked;
+    }
+
+    var rows = find_all('.results-table-row').filter(is_all_rows_hidden);
+    var all_rows_hidden = rows.length == 0 ? true : false;
+    var not_found_message = document.getElementById("not-found-message");
+    not_found_message.hidden = !all_rows_hidden;
+}
+</script>
+    <h1>report_only_bug.html</h1>
+    <p>Report generated on 20-Aug-2019 at 15:00:06 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v1.22.0</p>
+    <h2>Environment</h2>
+    <table id="environment">
+      <tr>
+        <td>Base URL</td>
+        <td></td></tr>
+      <tr>
+        <td>Capabilities</td>
+        <td>{&apos;browserName&apos;: &apos;chrome&apos;}</td></tr>
+      <tr>
+        <td>Driver</td>
+        <td>Remote</td></tr>
+      <tr>
+        <td>Packages</td>
+        <td>{&apos;pytest&apos;: &apos;5.1.0&apos;, &apos;py&apos;: &apos;1.8.0&apos;, &apos;pluggy&apos;: &apos;0.12.0&apos;}</td></tr>
+      <tr>
+        <td>Platform</td>
+        <td>Linux-5.0.0-25-generic-x86_64-with-Ubuntu-19.04-disco</td></tr>
+      <tr>
+        <td>Plugins</td>
+        <td>{&apos;metadata&apos;: &apos;1.8.0&apos;, &apos;variables&apos;: &apos;1.7.1&apos;, &apos;html&apos;: &apos;1.22.0&apos;, &apos;base-url&apos;: &apos;1.4.1&apos;, &apos;vcr&apos;: &apos;1.0.2&apos;, &apos;selenium&apos;: &apos;1.17.0&apos;}</td></tr>
+      <tr>
+        <td>Python</td>
+        <td>3.7.3</td></tr>
+      <tr>
+        <td>Server</td>
+        <td>localhost:4444</td></tr></table>
+    <h2>Summary</h2>
+    <p>6 tests ran in 9.65 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">0 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">6 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <h2>Results</h2>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable result initial-sort" col="result">Result</th>
+          <th class="sortable" col="name">Test</th>
+          <th class="sortable numeric" col="duration">Duration</th>
+          <th>Links</th></tr>
+        <tr hidden="true" id="not-found-message">
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">tests/api/test_api_task_create.py::test_api_task_create_task_with_a_too_long_title</td>
+          <td class="col-duration">0.07</td>
+          <td class="col-links"><a class="url" href="assets/test_api_task_create_task_with_a_too_long_title.yaml" target="_blank">HTTP</a> </td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">api = base_url http://cbrun.qatest.dataiku.com user 5H8U0kxfzehtm218<br/>new_user = 5H8U0kxfzehtm218 - Ho7POTUuVYMB4Get<br/>unique_task_title_too_long = &#x27;3GzQxebPeWa45LfYkN6No&#x27;<br/><br/>    @pytest.mark.api<br/>    @pytest.mark.task<br/>    @pytest.mark.taskcreate<br/>    @pytest.mark.bug<br/>    @pytest.mark.vcr()<br/>    def test_api_task_create_task_with_a_too_long_title(<br/>        api, new_user, unique_task_title_too_long<br/>    ):<br/>        &quot;&quot;&quot;<br/>        1. Sign in.<br/>        2. Create a task with a unique title with 21 characters (shall fail).<br/>        &quot;&quot;&quot;<br/>        api.authenticate(new_user.username, new_user.password)<br/>        with pytest.raises(TodoAppApiException):<br/>&gt;           api.create_task(Task(unique_task_title_too_long))<br/><span class="error">E           Failed: DID NOT RAISE &lt;class &#x27;todoapp.api.client.TodoAppApiException&#x27;&gt;</span><br/><br/>tests/api/test_api_task_create.py:148: Failed<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">tests/api/test_api_task_delete.py::test_api_task_delete_task_another_user</td>
+          <td class="col-duration">0.11</td>
+          <td class="col-links"><a class="url" href="assets/test_api_task_delete_task_another_user.yaml" target="_blank">HTTP</a> </td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">api = base_url http://cbrun.qatest.dataiku.com user QA<br/>new_task = 2 - Wt8l9esfYedeZVoy - False, default_user = QA - willWin<br/><br/>    @pytest.mark.api<br/>    @pytest.mark.task<br/>    @pytest.mark.taskdelete<br/>    @pytest.mark.vcr()<br/>    @pytest.mark.bug<br/>    def test_api_task_delete_task_another_user(api, new_task, default_user):<br/>        &quot;&quot;&quot;<br/>        1. Sign in.<br/>        2. List the tasks. The newly created task is present.<br/>        3. Delete a task not owned by to the authenticated user (shall fail).<br/>        &quot;&quot;&quot;<br/>        api.authenticate(default_user.username, default_user.password)<br/>        assert new_task in api.list_tasks()<br/>        assert new_task.username != default_user.username<br/>        with pytest.raises(TodoAppApiException) as e_info:<br/>&gt;           api.delete_task(new_task.id)<br/><span class="error">E           Failed: DID NOT RAISE &lt;class &#x27;todoapp.api.client.TodoAppApiException&#x27;&gt;</span><br/><br/>tests/api/test_api_task_delete.py:54: Failed<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">tests/api/test_api_task_update.py::test_api_task_update_title_too_long</td>
+          <td class="col-duration">0.07</td>
+          <td class="col-links"><a class="url" href="assets/test_api_task_update_title_too_long.yaml" target="_blank">HTTP</a> </td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">api = base_url http://cbrun.qatest.dataiku.com user kLHVBOnk4BW5L0uP<br/>new_user = kLHVBOnk4BW5L0uP - pNL1V4noYmH2R3CM<br/>new_task = 3 - f4AHVBSZ0x0tBSIb4ML2q - False<br/>unique_task_title_too_long = &#x27;f4AHVBSZ0x0tBSIb4ML2q&#x27;<br/><br/>    @pytest.mark.api<br/>    @pytest.mark.task<br/>    @pytest.mark.taskupdate<br/>    @pytest.mark.bug<br/>    @pytest.mark.vcr()<br/>    def test_api_task_update_title_too_long(<br/>        api, new_user, new_task, unique_task_title_too_long<br/>    ):<br/>        &quot;&quot;&quot;<br/>        1. Sign in.<br/>        2. Update the title of a task owned by the authenticated user. The new title<br/>           length is 21 characters. (shall fail)<br/>        &quot;&quot;&quot;<br/>        api.authenticate(new_user.username, new_user.password)<br/>        new_task.title = unique_task_title_too_long<br/>        with pytest.raises(TodoAppApiException):<br/>&gt;           api.update_task(new_task.id, new_task)<br/><span class="error">E           Failed: DID NOT RAISE &lt;class &#x27;todoapp.api.client.TodoAppApiException&#x27;&gt;</span><br/><br/>tests/api/test_api_task_update.py:90: Failed<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">tests/api/test_api_user.py::test_api_user_create_users_with_the_same_password</td>
+          <td class="col-duration">0.07</td>
+          <td class="col-links"><a class="url" href="assets/test_api_user_create_users_with_the_same_password.yaml" target="_blank">HTTP</a> </td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">api = base_url http://cbrun.qatest.dataiku.com user <br/><br/>    @pytest.mark.api<br/>    @pytest.mark.user<br/>    @pytest.mark.bug<br/>    @pytest.mark.vcr()<br/>    def test_api_user_create_users_with_the_same_password(api):<br/>        &quot;&quot;&quot;<br/>        1. Create a user with a unique name and a unique password.<br/>        2. Create another user with another unique name but with the same password.<br/>        &quot;&quot;&quot;<br/>        username1 = &quot;test_api_user_create_users_with_the_same_password_1&quot;<br/>        username2 = &quot;test_api_user_create_users_with_the_same_password_2&quot;<br/>        password = &quot;test_api_user_create_users_with_the_same_password&quot;<br/>        user = api.create_user(User(username1, password))<br/>        assert user.username == username1<br/>&gt;       user = api.create_user(User(username2, password))<br/><br/>tests/api/test_api_user.py:68: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>todoapp/api/client.py:125: in create_user<br/>    check_status(response, 200, &quot;Unable to create user&quot;)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>response = &lt;Response [500]&gt;, expected_status = 200<br/>error_message = &#x27;Unable to create user&#x27;<br/><br/>    def check_status(response, expected_status, error_message):<br/>        if not response.status_code == expected_status:<br/>&gt;           raise TodoAppApiException(error_message, response.status_code, response.text)<br/><span class="error">E           todoapp.api.client.TodoAppApiException: Unable to create user: (HTTP 500) - Internal Server Error</span><br/><br/>todoapp/api/client.py:37: TodoAppApiException<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">tests/web/test_web_task_edit.py::test_web_task_edit_title_with_too_long_title</td>
+          <td class="col-duration">2.67</td>
+          <td class="col-links"><a class="url" href="http://cbrun.qatest.dataiku.com/web/index.html" target="_blank">URL</a> <a class="image" href="assets/tests_web_test_web_task_edit.py__test_web_task_edit_title_with_too_long_title_1_0.png" target="_blank">Screenshot</a> <a class="text" href="assets/tests_web_test_web_task_edit.py__test_web_task_edit_title_with_too_long_title_2_0.txt" target="_blank">HTML</a> <a class="text" href="assets/tests_web_test_web_task_edit.py__test_web_task_edit_title_with_too_long_title_3_0.txt" target="_blank">Server Log</a> </td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="image"><a href="assets/tests_web_test_web_task_edit.py__test_web_task_edit_title_with_too_long_title_1_0.png"><img src="assets/tests_web_test_web_task_edit.py__test_web_task_edit_title_with_too_long_title_1_0.png"/></a></div>
+            <div class="log">webapp = base_url http://cbrun.qatest.dataiku.com/web/index.html user 60aQGzytYkmy1SYd<br/>new_user = 60aQGzytYkmy1SYd - vG0UMCHpm8ZeEbus<br/>new_task = 4 - XuQYtgQJsHQvyLRh - False<br/>new_task_no_tag = 5 - Rkox3HkdlP8jBfKS - False<br/>unique_task_title_too_long = &#x27;CSK7JRFb0Orj46bIshpGh&#x27;<br/><br/>    @pytest.mark.web<br/>    @pytest.mark.task<br/>    @pytest.mark.taskupdate<br/>    @pytest.mark.bug<br/>    def test_web_task_edit_title_with_too_long_title(<br/>        webapp, new_user, new_task, new_task_no_tag, unique_task_title_too_long<br/>    ):<br/>        &quot;&quot;&quot;<br/>        1. Navigate to the HomePage.<br/>        2. Sign in.<br/>        3. List the tasks. The newly created task is present.<br/>        4. Update the title of a task owned by the authenticated user<br/>           with the title too long (21 characters) (shall fail).<br/>        &quot;&quot;&quot;<br/>        webapp.homepage()<br/>        webapp.sign_in(new_user.username, new_user.password)<br/>        task = webapp.taskboard.find_task(new_task.title)<br/>        with pytest.raises(AssertionError):<br/>&gt;           task.edit(title=unique_task_title_too_long)<br/><span class="error">E           Failed: DID NOT RAISE &lt;class &#x27;AssertionError&#x27;&gt;</span><br/><br/>tests/web/test_web_task_edit.py:131: Failed<br/>------------------------------- pytest-selenium --------------------------------<br/>URL: http://cbrun.qatest.dataiku.com/web/index.html<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">tests/web/test_web_task_edit.py::test_web_task_edit_change_tag_name</td>
+          <td class="col-duration">3.29</td>
+          <td class="col-links"><a class="url" href="http://cbrun.qatest.dataiku.com/web/index.html" target="_blank">URL</a> <a class="image" href="assets/tests_web_test_web_task_edit.py__test_web_task_edit_change_tag_name_1_0.png" target="_blank">Screenshot</a> <a class="text" href="assets/tests_web_test_web_task_edit.py__test_web_task_edit_change_tag_name_2_0.txt" target="_blank">HTML</a> <a class="text" href="assets/tests_web_test_web_task_edit.py__test_web_task_edit_change_tag_name_3_0.txt" target="_blank">Server Log</a> </td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="image"><a href="assets/tests_web_test_web_task_edit.py__test_web_task_edit_change_tag_name_1_0.png"><img src="assets/tests_web_test_web_task_edit.py__test_web_task_edit_change_tag_name_1_0.png"/></a></div>
+            <div class="log">webapp = base_url http://cbrun.qatest.dataiku.com/web/index.html user snaawpAp9TE6vI4g<br/>new_user = snaawpAp9TE6vI4g - sxzFyVZY9oOerDmH<br/>new_task_done_three_tags = 6 - G9qaI6Q8E85H6Ziy - True<br/>unique_tag_name = &#x27;Rw2PoxPOXAamw0IG&#x27;<br/><br/>    @pytest.mark.web<br/>    @pytest.mark.task<br/>    @pytest.mark.taskupdate<br/>    @pytest.mark.bug<br/>    def test_web_task_edit_change_tag_name(<br/>        webapp, new_user, new_task_done_three_tags, unique_tag_name<br/>    ):<br/>        &quot;&quot;&quot;<br/>        1. Navigate to the HomePage.<br/>        2. Sign in.<br/>        3. List the tasks. The newly created task is present.<br/>        4. Update a tag name of a task owned by the authenticated user.<br/>        5. Navigate to the HomePage (refresh the taskboard).<br/>        6. List the tasks. The newly created task is present.<br/>        7. The tag name is still updated.<br/>        &quot;&quot;&quot;<br/>        webapp.homepage()<br/>        webapp.sign_in(new_user.username, new_user.password)<br/>        task = webapp.taskboard.find_task(new_task_done_three_tags.title)<br/>        old_tag_name = new_task_done_three_tags.tags[0].name<br/>        new_tag_name = unique_tag_name<br/>        task.edit(tags={old_tag_name: new_tag_name})<br/>        webapp.homepage()<br/>        task = webapp.taskboard.find_task(new_task_done_three_tags.title)<br/>&gt;       assert old_tag_name not in task.tags<br/><span class="error">E       AssertionError: assert &#x27;LKiXLgrikICRMXkx&#x27; not in [&#x27;LKiXLgrikICRMXkx&#x27;, &#x27;pBUVHztbY7tEORAY&#x27;, &#x27;EsYRmaMaWQITSvFI&#x27;]</span><br/><span class="error">E        +  where [&#x27;LKiXLgrikICRMXkx&#x27;, &#x27;pBUVHztbY7tEORAY&#x27;, &#x27;EsYRmaMaWQITSvFI&#x27;] = &lt;todoapp.web.task.TaskPage object at 0x7fbb46a5cdd8&gt;.tags</span><br/><br/>tests/web/test_web_task_edit.py:158: AssertionError<br/>------------------------------- pytest-selenium --------------------------------<br/>URL: http://cbrun.qatest.dataiku.com/web/index.html<br/></div></td></tr></tbody></table></body></html>

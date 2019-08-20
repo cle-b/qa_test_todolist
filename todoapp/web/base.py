@@ -2,6 +2,8 @@
 
 
 class BasePage(object):
+    username = ""  # for information only
+
     def __init__(self, base_url, driver, root=None):
         """Initialize the PageObject.
 
