@@ -45,7 +45,7 @@ def test_api_task_delete_task_another_user(api, new_task, default_user):
     """
     1. Sign in.
     2. List the tasks. The newly created task is present.
-    3. Delete a task not owned by to the authenticated user (shall fail).
+    3. Delete a task not owned by the authenticated user (shall fail).
     """
     api.authenticate(default_user.username, default_user.password)
     assert new_task in api.list_tasks()
